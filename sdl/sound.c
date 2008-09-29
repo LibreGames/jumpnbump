@@ -463,11 +463,8 @@ char dj_ready_mod(char mod_num)
 {
 #ifndef NO_SDL_MIXER
 	FILE *tmp;
-# ifdef _WIN32
-	char filename[] = "jnb.tmpmusic.mod";
-# else
-	char filename[] = "/tmp/jnb.tmpmusic.mod";
-# endif
+	int tmp_fd;
+	char* filename;
 	unsigned char *fp;
 	int len;
 
@@ -506,15 +503,39 @@ char dj_ready_mod(char mod_num)
 		return 0;
 	}
 
+#ifdef _MSC_VER
+	// FIXME: Implement safe temporary files for MSVC (needs alternative for mkstemp)
+	filename = strdup("jnb.tmpmusic.mod");
 	tmp = fopen(filename, "wb");
 	if (tmp) {
-        fwrite(fp, len, 1, tmp);
+		fwrite(fp, len, 1, tmp);
 		fflush(tmp);
 		fclose(tmp);
 	}
+#else
+#ifdef __MINGW32__
+	filename = strdup("jumpnbump.mod.XXXXXX");
+#else // Unix
+	filename = strdup("/tmp/jumpnbump.mod.XXXXXX");
+#endif
+	tmp_fd = mkstemp(filename);
+	if (tmp_fd == -1) {
+		free(filename);
+		return 0;
+	}
+	tmp = fdopen(tmp_fd, "wb");
+	if (!tmp) {
+		free(filename);
+		return 0;
+	}
+	fwrite(fp, len, 1, tmp);
+	fflush(tmp);
+	fclose(tmp);
+#endif
 
 	current_music = Mix_LoadMUS(filename);
-	unlink(filename);
+	remove(filename);
+	free(filename);
 	if (current_music == NULL) {
 		fprintf(stderr, "Couldn't load music: %s\n", SDL_GetError());
 		return 0;
