@@ -5,7 +5,7 @@
 
 <widget class="GtkWindow" id="main">
 	<property name="visible">True</property>
-	<property name="title" translatable="yes">Jump n Bump menu</property>
+	<property name="title" translatable="yes">Jump 'n Bump menu</property>
 	<property name="type">GTK_WINDOW_TOPLEVEL</property>
 	<property name="window_position">GTK_WIN_POS_CENTER</property>
 	<property name="modal">False</property>
@@ -717,7 +717,7 @@
 					<property name="editable">False</property>
 					<property name="visibility">True</property>
 					<property name="max_length">0</property>
-					<property name="text" translatable="yes">Jump n Bump menu 0.6</property>
+					<property name="text" translatable="yes">Jump 'n Bump menu 0.6</property>
 					<property name="has_frame">True</property>
 					<property name="invisible_char" translatable="yes">*</property>
 					<property name="activates_default">False</property>
@@ -734,9 +734,9 @@
 					<property name="visible">True</property>
 					<property name="label" translatable="yes">Copyright (c) 2002 Martin Willemoes Hansen &lt;mwh@sysrq.dk&gt;
 
-						Jump n Bump starter.
+						Jump 'n Bump starter.
 
-						Gtk+ and Python rocks!!</property>
+						GTK+ and Python rock!!</property>
 					<property name="use_underline">False</property>
 					<property name="use_markup">False</property>
 					<property name="justify">GTK_JUSTIFY_LEFT</property>

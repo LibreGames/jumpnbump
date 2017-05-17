@@ -22,8 +22,8 @@ msgid "Level"
 msgstr "Niveau"
 
 #: jumpnbump_menu.glade:8
-msgid "Jump n Bump menu"
-msgstr "Jump n Bump menu"
+msgid "Jump 'n Bump menu"
+msgstr "Jump 'n Bump menu"
 
 #: jumpnbump_menu.glade:41
 msgid "_Standalone"
@@ -118,22 +118,22 @@ msgid "About"
 msgstr "À propos"
 
 #: jumpnbump_menu.glade:740
-msgid "Jump n Bump menu 0.6"
-msgstr "Jump n Bump menu 0.6"
+msgid "Jump 'n Bump menu 0.6"
+msgstr "Jump 'n Bump menu 0.6"
 
 #: jumpnbump_menu.glade:755
 msgid ""
 "Copyright (c) 2002 Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "\n"
-"Jump n Bump starter.\n"
+"Jump 'n Bump starter.\n"
 "\n"
-"Gtk+ and Python rocks!!"
+"GTK+ and Python rock!!"
 msgstr ""
 "Copyright (c) 2002 Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "\n"
-"Lanceur pour Jump'n Bump.\n"
+"Lanceur pour Jump 'n Bump.\n"
 "\n"
-"Gtk+ et Python, c'est bon!"
+"GTK+ et Python, c'est bon !"
 
 #: jumpnbump_menu.glade:836
 msgid "_Ok"

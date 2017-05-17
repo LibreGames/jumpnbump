@@ -21,7 +21,7 @@ msgid "Level"
 msgstr ""
 
 #: jumpnbump_menu.glade:8
-msgid "Jump n Bump menu"
+msgid "Jump 'n Bump menu"
 msgstr ""
 
 #: jumpnbump_menu.glade:41
@@ -117,16 +117,16 @@ msgid "About"
 msgstr ""
 
 #: jumpnbump_menu.glade:740
-msgid "Jump n Bump menu 0.6"
+msgid "Jump 'n Bump menu 0.6"
 msgstr ""
 
 #: jumpnbump_menu.glade:755
 msgid ""
 "Copyright (c) 2002 Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "\n"
-"Jump n Bump starter.\n"
+"Jump 'n Bump starter.\n"
 "\n"
-"Gtk+ and Python rocks!!"
+"GTK+ and Python rock!!"
 msgstr ""
 
 #: jumpnbump_menu.glade:836
