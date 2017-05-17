@@ -80,15 +80,6 @@ def server_mode(widget):
     noflies.set_sensitive(1)
 
 
-def fireworks_mode(widget):
-    disable_enable_level(0)
-    disable_enable_server(0)
-    nogore.set_sensitive(0)
-    nogore.set_active(0)
-    noflies.set_sensitive(0)
-    noflies.set_active(0)
-
-
 def disable_enable_server(setting):
     server_entry.set_sensitive(setting)
     player_num.set_sensitive(setting)
@@ -145,8 +136,6 @@ def about_close(widget):
 def run(widget):
     if (standalone.get_active()):
         execute(*get_level() + common_options())
-    elif (fireworks.get_active()):
-        execute('-fireworks', *common_options())
     elif (client.get_active()):
         execute('-player', str(player_num.get_value_as_int()),
                 '-connect', server_entry.get_text(),
@@ -213,14 +202,13 @@ def main():
 
     gui = gtk.glade.XML(gladefile, 'main', domain=application)
 
-    global about_dialog, choosen_level, standalone, fireworks, client, server, treeview, \
+    global about_dialog, choosen_level, standalone, client, server, treeview, \
         mirror, num_clients, server_entry, player_num, fullscreen, \
         nogore, double_res, nosound, noflies, withmusic, image
 
     about_dialog = None
     choosen_level = ''
     standalone = gui.get_widget('standalone')
-    fireworks = gui.get_widget('fireworks')
     client = gui.get_widget('client')
     server = gui.get_widget('server')
     treeview = gui.get_widget('level_treeview')
@@ -240,7 +228,6 @@ def main():
     gui.signal_autoconnect({'standalone_mode': standalone_mode,
                             'client_mode': client_mode,
                             'server_mode': server_mode,
-                            'fireworks_mode': fireworks_mode,
                             'level_changed': level_changed,
                             'quit': lambda *args: gtk.main_quit(),
                             'run': run,
