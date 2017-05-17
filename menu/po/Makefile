@@ -1,3 +1,6 @@
+DESTDIR ?=
+PREFIX ?= /usr/local
+DATADIR ?= $(PREFIX)/share
 
 LANGS = $(subst .po,,$(wildcard *.po))
 MOS   = $(subst .po,.mo,$(wildcard *.po))
@@ -9,14 +12,13 @@ clean:
 
 install:
 	for lang in $(LANGS) ; do \
-	  install -D -o root -g root -m 0644 $$lang.mo $(PREFIX)/share/locale/$$lang/LC_MESSAGES/jumpnbump-menu.mo ; \
+	  install -D -m 0644 $$lang.mo $(DESTDIR)$(DATADIR)/locale/$$lang/LC_MESSAGES/jumpnbump-menu.mo ; \
 	done
 
 uninstall:
 	for lang in $(LANGS) ; do \
-	  rm $(PREFIX)/share/locale/$$lang/LC_MESSAGES/jumpnbumo-menu.mo ; \
+	  rm $(DESTDIR)$(DATADIR)/locale/$$lang/LC_MESSAGES/jumpnbump-menu.mo ; \
 	done
 
 %.mo: %.po
 	msgfmt -o $@ $<
-

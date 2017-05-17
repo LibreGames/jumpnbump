@@ -17,8 +17,9 @@ import tempfile
 import shutil
 import gettext
 
-RESOURCE_DIR = '/usr/share/games/jumpnbump'
-BINARY_DIR = '/usr/games'
+RESOURCE_DIR = '%%DATADIR%%/jumpnbump'
+BINARY_DIR = '%%BINDIR%%'
+UNPACK_BIN = '%%UNPACKBIN%%'
 
 application = "jumpnbump-menu"
 gettext.install(application)
@@ -109,7 +110,7 @@ def level_changed(widget):
     try:
         unpackdir = tempfile.mkdtemp("", "jumpnbump-menu-")
         os.chdir(unpackdir)
-        os.spawnlp(os.P_WAIT, '/usr/lib/jumpnbump/unpack',
+        os.spawnlp(os.P_WAIT, UNPACK_BIN,
                    'unpack', choosen_level)
         os.spawnlp(os.P_WAIT, 'convert', 'convert', '-scale',
                    '50%', 'level.pcx', 'level_scaled.pcx')
