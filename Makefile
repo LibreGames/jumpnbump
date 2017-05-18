@@ -27,7 +27,7 @@ BINARIES = $(TARGET) $(MODIFY_TARGET) jnbmenu.tcl
 
 .PHONY: data
 
-all: $(BINARIES)
+all: $(BINARIES) jnbmenu
 
 $(SDL_TARGET): globals.h
 	$(MAKE) -C sdl
@@ -49,9 +49,14 @@ jnbmenu.tcl: jnbmenu.pre
 data: $(MODIFY_TARGET)
 	$(MAKE) -C data
 
+jnbmenu:
+	$(MAKE) -C menu
+
 clean:
 	for dir in data modify sdl; do $(MAKE) clean -C $$dir; done
 	$(RM) $(TARGET) *.exe *.o globals.h jnbmenu.tcl
+
+	$(MAKE) -C menu clean
 
 install:
 	mkdir -p $(DESTDIR)$(BINDIR)
@@ -71,6 +76,8 @@ install:
 		$(DESTDIR)$(DATADIR)/icons/jumpnbump.png
 	install -m 644 dist/jumpnbump.6 $(DESTDIR)$(DATADIR)/man/man6/
 
+	$(MAKE) -C menu install
+
 uninstall:
 	for bin in $(BINARIES); do $(RM) $(DESTDIR)$(BINDIR)/$$bin; done
 	$(RM) -r $(DESTDIR)$(GAMEDATADIR)/jumpnbump
@@ -78,6 +85,8 @@ uninstall:
 	$(RM) $(DESTDIR)$(DATADIR)/applications/jumpnbump.desktop
 	$(RM) $(DESTDIR)$(DATADIR)/icons/jumpnbump.png
 	$(RM) $(DESTDIR)$(DATADIR)/man/man6/jumpnbump.6
+
+	$(MAKE) -C menu uninstall
 
 doc:
 	rman dist/jumpnbump.6 -f HTML > docs/jumpnbump.html
