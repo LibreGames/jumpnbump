@@ -23,6 +23,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -83,8 +84,13 @@ int main(int argc, char **argv)
 	memset(filename, 0, sizeof(filename));
 	strncpy(filename, datafile[i].filename, 12);
 	printf("Extracting %s ", filename);
+	fflush(stdout);
 
-	outfd = open(filename, O_RDWR | O_CREAT | O_BINARY, 0644);
+	if (remove(filename) == -1 && errno != ENOENT) {
+		perror("cannot remove file");
+		exit(1);
+	}
+	outfd = open(filename, O_RDWR | O_CREAT | O_EXCL | O_BINARY, 0644);
 	if (!outfd) {
 	    perror("cant open file");
 	    exit(1);
