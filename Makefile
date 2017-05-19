@@ -23,7 +23,7 @@ TARGET = jumpnbump$(EXE)
 SDL_TARGET = sdl.a
 MODIFY_TARGET = gobpack$(EXE) jnbpack$(EXE) jnbunpack$(EXE)
 OBJS = main.o menu.o filter.o network.o
-BINARIES = $(TARGET) $(MODIFY_TARGET) jnbmenu.tcl
+BINARIES = $(TARGET) $(MODIFY_TARGET)
 
 .PHONY: data
 
@@ -43,9 +43,6 @@ $(OBJS): globals.h
 globals.h: globals.pre
 	sed -e "s#%%DATADIR%%#$(GAMEDATADIR)#g" < globals.pre > globals.h
 
-jnbmenu.tcl: jnbmenu.pre
-	sed -e "s#%%BINDIR%%#$(BINDIR)#g" -e "s#%%DATADIR%%#$(GAMEDATADIR)#g" < jnbmenu.pre > jnbmenu.tcl
-
 data: $(MODIFY_TARGET)
 	$(MAKE) -C data
 
@@ -54,7 +51,7 @@ jnbmenu:
 
 clean:
 	for dir in data modify sdl; do $(MAKE) clean -C $$dir; done
-	$(RM) $(TARGET) *.exe *.o globals.h jnbmenu.tcl
+	$(RM) $(TARGET) *.exe *.o globals.h
 
 	$(MAKE) -C menu clean
 
