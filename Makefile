@@ -69,6 +69,8 @@ install:
 		$(DESTDIR)$(DATADIR)/appdata/jumpnbump.appdata.xml
 	install -m 644 dist/jumpnbump.desktop \
 		$(DESTDIR)$(DATADIR)/applications/jumpnbump.desktop
+	install -m 644 dist/jumpnbump-menu.desktop \
+		$(DESTDIR)$(DATADIR)/applications/jumpnbump-menu.desktop
 	install -m 644 dist/jumpnbump.png \
 		$(DESTDIR)$(DATADIR)/icons/jumpnbump.png
 	install -m 644 dist/jumpnbump.6 $(DESTDIR)$(DATADIR)/man/man6/
