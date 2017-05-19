@@ -2,9 +2,12 @@
   - Ported to SDL2
   - Window can now be resized
   - Show scores only for enabled players
+  - Add Python/GTK+ jumpnbump-menu by Martin Willemoes Hansen
+  - (Re-)Add Windows support via MinGW-w64
+  - Removed obsolete Tcl jnbmenu
   - Removed fireworks mode
   - Removed obsolete Kaillera network code
-  - Fix warnings and merge some downstream patches
+  - Fix warnings and merge some downstream patches (esp. from Debian)
   - Add desktop file, icon and appdata file (Linux)
   - Packaging fixes and cleanups
 
