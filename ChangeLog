@@ -4,6 +4,7 @@
   - Show scores only for enabled players
   - Add Python/GTK+ jumpnbump-menu by Martin Willemoes Hansen
   - (Re-)Add Windows support via MinGW-w64
+  - Handle temporary files in a safe way
   - Removed obsolete Tcl jnbmenu
   - Removed fireworks mode
   - Removed obsolete Kaillera network code
@@ -23,7 +24,7 @@
     completely, now fading and everything else works in scaled up mode.
   - another attempt to fix sound on big endian systems.
 
-Sep 2002 - 1.40
+23 Sep 2002 - 1.40
   - manpage update
   - joystick support added
   - freebsd ports (thanks rigel from #demoscene)
@@ -49,21 +50,21 @@ Sep 2002 - 1.40
 
 15 Jun 2002 - 1.32
    - fix for off by one in -mirror
-     add icon for application (macosx,windows,x)
+   - add icon for application (macosx,windows,x)
 
 10 Jun 2002 - 1.31
    - rename jbmenu.tcl to jnbmenu.tcl, make it +x, add
      options for -mirror and -scaleup
-     update manpage and -h with -scaleup
-     update makefiles accordingly
-     rename pack/unpack to jnbpack/jnbunpack
-     set gametitle
+   - update manpage and -h with -scaleup
+   - update makefiles accordingly
+   - rename pack/unpack to jnbpack/jnbunpack
+   - set gametitle
 
 9 Jun 2002 - 1.3
    - Added -mirror commandline option to play the level mirrored
    - Deleting temporary music file
 
-- 1.2
+17 Apr 2002 - 1.2
    - MacOS X fixes
    - some endian fixes
 
