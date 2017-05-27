@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2017 Rémi Verschelde <remi@verschelde.fr> -->
+<!-- Copyright 2017 Rémi Verschelde <rverschelde@gmail.com> -->
 <component type="desktop">
   <id>jumpnbump.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -42,10 +42,10 @@
   </content_rating>
   <screenshots>
     <screenshot type="default" width="800" height="512">
-      https://raw.githubusercontent.com/MCMic/jumpnbump/master/dist/screenshot.png
+      https://gitlab.com/LibreGames/jumpnbump/raw/master/dist/screenshot.png
     </screenshot>
   </screenshots>
   <translation/>
-  <url type="homepage">https://github.com/MCMic/jumpnbump</url>
-  <update_contact>remi_AT_verschelde.fr</update_contact>
+  <url type="homepage">https://gitlab.com/LibreGames/jumpnbump</url>
+  <update_contact>rverschelde_AT_gmail.com</update_contact>
 </component>
