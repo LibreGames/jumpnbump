@@ -25,14 +25,16 @@ MODIFY_TARGET = gobpack$(EXE) jnbpack$(EXE) jnbunpack$(EXE)
 OBJS = main.o menu.o filter.o network.o
 BINARIES = $(TARGET) $(MODIFY_TARGET)
 
-.PHONY: data
+.PHONY: data modify
 
 all: $(BINARIES) jnbmenu
 
 $(SDL_TARGET): globals.h
 	$(MAKE) -C sdl
 
-$(MODIFY_TARGET): globals.h
+$(MODIFY_TARGET): modify
+
+modify: globals.h
 	$(MAKE) -C modify
 
 $(TARGET): $(OBJS) $(SDL_TARGET) data globals.h
