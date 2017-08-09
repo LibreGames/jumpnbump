@@ -23,12 +23,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #ifdef LINUX
 #include <getopt.h>
 #endif
@@ -60,22 +60,22 @@ int main(int argc, char **argv)
 #ifdef LINUX
 	while ((c = getopt(argc, argv, "o:")) != EOF) {
 		switch (c) {
-		case 'o':
-			if (optarg) {
-				outfile = strdup(optarg);
-			}
-			break;
+			case 'o':
+				if (optarg) {
+					outfile = strdup(optarg);
+				}
+				break;
 		}
 	}
 	argc -= optind;
 	argv += optind;
 #else
 	c = 1;
-	while (c<argc) {
-		if (argv[c][0]=='-') {
-			if (argv[c][1]=='o') {
-				if ( ((c+1)<argc) && (argv[c+1]) ) {
-					outfile = strdup(argv[c+1]);
+	while (c < argc) {
+		if (argv[c][0] == '-') {
+			if (argv[c][1] == 'o') {
+				if (((c + 1) < argc) && (argv[c + 1])) {
+					outfile = strdup(argv[c + 1]);
 					c++;
 				}
 				c++;
@@ -135,9 +135,9 @@ int main(int argc, char **argv)
 	{
 		char temp;
 
-		temp = (num_entries >>  0) & 0xff;
+		temp = (num_entries >> 0) & 0xff;
 		write(fd, &temp, 1);
-		temp = (num_entries >>  8) & 0xff;
+		temp = (num_entries >> 8) & 0xff;
 		write(fd, &temp, 1);
 		temp = (num_entries >> 16) & 0xff;
 		write(fd, &temp, 1);
@@ -150,17 +150,17 @@ int main(int argc, char **argv)
 		char temp;
 
 		write(fd, &datafile[i].filename, 12);
-		temp = (datafile[i].offset >>  0) & 0xff;
+		temp = (datafile[i].offset >> 0) & 0xff;
 		write(fd, &temp, 1);
-		temp = (datafile[i].offset >>  8) & 0xff;
+		temp = (datafile[i].offset >> 8) & 0xff;
 		write(fd, &temp, 1);
 		temp = (datafile[i].offset >> 16) & 0xff;
 		write(fd, &temp, 1);
 		temp = (datafile[i].offset >> 24) & 0xff;
 		write(fd, &temp, 1);
-		temp = (datafile[i].size >>  0) & 0xff;
+		temp = (datafile[i].size >> 0) & 0xff;
 		write(fd, &temp, 1);
-		temp = (datafile[i].size >>  8) & 0xff;
+		temp = (datafile[i].size >> 8) & 0xff;
 		write(fd, &temp, 1);
 		temp = (datafile[i].size >> 16) & 0xff;
 		write(fd, &temp, 1);

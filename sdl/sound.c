@@ -40,7 +40,7 @@ sfx_data sounds[NUM_SFX];
 
 static int SAMPLECOUNT = 512;
 
-#define MAX_CHANNELS	32
+#define MAX_CHANNELS 32
 
 typedef struct {
 	/* loop flag */
@@ -51,9 +51,9 @@ typedef struct {
 	unsigned int stepremainder;
 	unsigned int samplerate;
 	/* The channel data pointers, start and end. */
-	signed short* data;
-	signed short* startdata;
-	signed short* enddata;
+	signed short *data;
+	signed short *startdata;
+	signed short *enddata;
 	/* Hardware left and right channel volume lookup. */
 	int leftvol;
 	int rightvol;
@@ -83,7 +83,6 @@ static void stopchan(int i)
 	}
 }
 
-
 /*
 // This function adds a sound to the
 //  list of currently active sounds,
@@ -99,7 +98,7 @@ int addsfx(signed short *data, int len, int loop, int samplerate, int channel)
 	/* Set pointer to raw data. */
 	channelinfo[channel].data = data;
 	channelinfo[channel].startdata = data;
-      
+
 	/* Set pointer to end of raw data. */
 	channelinfo[channel].enddata = channelinfo[channel].data + len - 1;
 	channelinfo[channel].samplerate = samplerate;
@@ -109,7 +108,6 @@ int addsfx(signed short *data, int len, int loop, int samplerate, int channel)
 
 	return channel;
 }
-
 
 static void updateSoundParams(int slot, int volume)
 {
@@ -123,54 +121,53 @@ static void updateSoundParams(int slot, int volume)
 	// Patched to shift left *then* divide, to minimize roundoff errors
 	// as well as to use SAMPLERATE as defined above, not to assume 11025 Hz
 	*/
-	channelinfo[slot].step = ((channelinfo[slot].samplerate<<16)/audio_rate);
+	channelinfo[slot].step = ((channelinfo[slot].samplerate << 16) / audio_rate);
 
 	leftvol = volume;
-	rightvol= volume;  
+	rightvol = volume;
 
 	/* Sanity check, clamp volume. */
 	if (rightvol < 0)
 		rightvol = 0;
 	if (rightvol > 127)
 		rightvol = 127;
-    
+
 	if (leftvol < 0)
 		leftvol = 0;
 	if (leftvol > 127)
 		leftvol = 127;
-    
+
 	channelinfo[slot].leftvol = leftvol;
 	channelinfo[slot].rightvol = rightvol;
 }
-
 
 void mix_sound(void *unused, Uint8 *stream, int len)
 {
 	/* Mix current sound data. */
 	/* Data, from raw sound, for right and left. */
 	register int sample;
-	register int    dl;
-	register int    dr;
+	register int dl;
+	register int dr;
 
 	/* Pointers in audio stream, left, right, end. */
-	signed short*   leftout;
-	signed short*   rightout;
-	signed short*   leftend;
+	signed short *leftout;
+	signed short *rightout;
+	signed short *leftend;
 	/* Step in stream, left and right, thus two. */
-	int       step;
+	int step;
 
 	/* Mixing channel index. */
-	int       chan;
+	int chan;
 
 	/* Left and right channel */
 	/*  are in audio stream, alternating. */
-	leftout = (signed short *)stream;
-	rightout = ((signed short *)stream)+1;
+	leftout = (signed short *) stream;
+	rightout = ((signed short *) stream) + 1;
 	step = 2;
 
 	/* Determine end, for left channel only */
 	/*  (right channel is implicit). */
-	leftend = leftout + (len/4)*step;
+	leftend = leftout + (len / 4) * step;
 
 	/* Mix sounds into the mixing buffer. */
 	/* Loop over step*SAMPLECOUNT, */
@@ -183,15 +180,14 @@ void mix_sound(void *unused, Uint8 *stream, int len)
 		/* Love thy L2 chache - made this a loop. */
 		/* Now more channels could be set at compile time */
 		/*  as well. Thus loop those  channels. */
-		for ( chan = 0; chan < MAX_CHANNELS; chan++ ) {
+		for (chan = 0; chan < MAX_CHANNELS; chan++) {
 			/* Check channel, if active. */
 			if (channelinfo[chan].data) {
 				/* Get the raw data from the channel. */
 				/* no filtering */
 				/* sample = *channelinfo[chan].data; */
 				/* linear filtering */
-				sample = (int)(((int)channelinfo[chan].data[0] * (int)(0x10000 - channelinfo[chan].stepremainder))
-					+ ((int)channelinfo[chan].data[1] * (int)(channelinfo[chan].stepremainder))) >> 16;
+				sample = (int) (((int) channelinfo[chan].data[0] * (int) (0x10000 - channelinfo[chan].stepremainder)) + ((int) channelinfo[chan].data[1] * (int) (channelinfo[chan].stepremainder))) >> 16;
 
 				/* Add left and right part */
 				/*  for this channel (sound) */
@@ -216,7 +212,7 @@ void mix_sound(void *unused, Uint8 *stream, int len)
 				}
 			}
 		}
-  
+
 		/* Clamp to range. Left hardware channel. */
 		/* Has been char instead of short. */
 		/* if (dl > 127) *leftout = 127; */
@@ -231,7 +227,7 @@ void mix_sound(void *unused, Uint8 *stream, int len)
 		else if (dl < SHRT_MIN)
 			*leftout = SHRT_MIN;
 		else
-			*leftout = (signed short)dl;
+			*leftout = (signed short) dl;
 
 		/* Same for right hardware channel. */
 		if (dr > SHRT_MAX)
@@ -239,7 +235,7 @@ void mix_sound(void *unused, Uint8 *stream, int len)
 		else if (dr < SHRT_MIN)
 			*rightout = SHRT_MIN;
 		else
-			*rightout = (signed short)dr;
+			*rightout = (signed short) dr;
 
 		/* Increment current pointers in stream */
 		leftout += step;
@@ -260,7 +256,7 @@ char dj_init(void)
 	if (main_info.no_sound)
 		return 0;
 
-	audio_buffers = SAMPLECOUNT*audio_rate/11025;
+	audio_buffers = SAMPLECOUNT * audio_rate / 11025;
 
 	memset(channelinfo, 0, sizeof(channelinfo));
 	memset(sounds, 0, sizeof(sounds));
@@ -357,7 +353,7 @@ void dj_set_sfx_volume(char volume)
 		return;
 
 	SDL_LockAudio();
-	global_sfx_volume = volume*2;
+	global_sfx_volume = volume * 2;
 	SDL_UnlockAudio();
 }
 
@@ -368,18 +364,18 @@ void dj_play_sfx(unsigned char sfx_num, unsigned short freq, char volume, char p
 	if (main_info.music_no_sound || main_info.no_sound)
 		return;
 
-	if (channel<0) {
-		for (slot=0; slot<MAX_CHANNELS; slot++)
-			if (channelinfo[slot].data==NULL)
+	if (channel < 0) {
+		for (slot = 0; slot < MAX_CHANNELS; slot++)
+			if (channelinfo[slot].data == NULL)
 				break;
-		if (slot>=MAX_CHANNELS)
+		if (slot >= MAX_CHANNELS)
 			return;
 	} else
 		slot = channel;
 
 	SDL_LockAudio();
-	addsfx((short *)sounds[sfx_num].buf, sounds[sfx_num].length, sounds[sfx_num].loop, freq, slot);
-	updateSoundParams(slot, volume*2);
+	addsfx((short *) sounds[sfx_num].buf, sounds[sfx_num].length, sounds[sfx_num].loop, freq, slot);
+	updateSoundParams(slot, volume * 2);
 	SDL_UnlockAudio();
 }
 
@@ -407,7 +403,7 @@ void dj_set_sfx_channel_volume(char channel_num, char volume)
 		return;
 
 	SDL_LockAudio();
-	updateSoundParams(channel_num, volume*2);
+	updateSoundParams(channel_num, volume * 2);
 	SDL_UnlockAudio();
 }
 
@@ -421,12 +417,12 @@ void dj_stop_sfx_channel(char channel_num)
 	SDL_UnlockAudio();
 }
 
-char dj_load_sfx(unsigned char * file_handle, char *filename, int file_length, char sfx_type, unsigned char sfx_num)
+char dj_load_sfx(unsigned char *file_handle, char *filename, int file_length, char sfx_type, unsigned char sfx_num)
 {
 	unsigned int i;
 	unsigned char *src;
 	unsigned short *dest;
-	
+
 	if (main_info.no_sound)
 		return 0;
 
@@ -436,9 +432,8 @@ char dj_load_sfx(unsigned char * file_handle, char *filename, int file_length, c
 
 	sounds[sfx_num].length = file_length / 2;
 	src = sounds[sfx_num].buf;
-	dest = (unsigned short *)sounds[sfx_num].buf;
-	for (i=0; i<sounds[sfx_num].length; i++)
-	{
+	dest = (unsigned short *) sounds[sfx_num].buf;
+	for (i = 0; i < sounds[sfx_num].length; i++) {
 		unsigned short temp;
 		temp = src[0] + (src[1] << 8);
 		*dest = temp;
@@ -464,7 +459,7 @@ char dj_ready_mod(char mod_num)
 #ifndef NO_SDL_MIXER
 	FILE *tmp;
 	int tmp_fd;
-	char* filename;
+	char *filename;
 	unsigned char *fp;
 	int len;
 
@@ -472,23 +467,23 @@ char dj_ready_mod(char mod_num)
 		return 0;
 
 	switch (mod_num) {
-	case MOD_MENU:
-		fp = dat_open("jump.mod");
-		len = dat_filelen("jump.mod");
-		break;
-	case MOD_GAME:
-		fp = dat_open("bump.mod");
-		len = dat_filelen("bump.mod");
-		break;
-	case MOD_SCORES:
-		fp = dat_open("scores.mod");
-		len = dat_filelen("scores.mod");
-		break;
-	default:
-		fprintf(stderr, "bogus parameter to dj_ready_mod()\n");
-		fp = NULL;
-		len = 0;
-		break;
+		case MOD_MENU:
+			fp = dat_open("jump.mod");
+			len = dat_filelen("jump.mod");
+			break;
+		case MOD_GAME:
+			fp = dat_open("bump.mod");
+			len = dat_filelen("bump.mod");
+			break;
+		case MOD_SCORES:
+			fp = dat_open("scores.mod");
+			len = dat_filelen("scores.mod");
+			break;
+		default:
+			fprintf(stderr, "bogus parameter to dj_ready_mod()\n");
+			fp = NULL;
+			len = 0;
+			break;
 	}
 
 	if (Mix_PlayingMusic())
@@ -579,7 +574,7 @@ void dj_set_mod_volume(char volume)
 #endif
 }
 
-char dj_load_mod(unsigned char * file_handle, char *filename, char mod_num)
+char dj_load_mod(unsigned char *file_handle, char *filename, char mod_num)
 {
 	return 0;
 }

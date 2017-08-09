@@ -36,7 +36,7 @@ void processMovePacket(NetPacket *pkt)
 {
 	int playerid = pkt->arg;
 	int movetype = ((pkt->arg2 >> 16) & 0xFF);
-	int newval   = ((pkt->arg2 >>  0) & 0xFF);
+	int newval = ((pkt->arg2 >> 0) & 0xFF);
 
 	if (movetype == MOVEMENT_LEFT) {
 		player[playerid].action_left = newval;
@@ -58,7 +58,7 @@ void tellServerPlayerMoved(int playerid, int movement_type, int newval)
 
 	pkt.cmd = NETCMD_MOVE;
 	pkt.arg = playerid;
-	pkt.arg2 = ( ((movement_type & 0xFF) << 16) | ((newval & 0xFF) << 0) );
+	pkt.arg2 = (((movement_type & 0xFF) << 16) | ((newval & 0xFF) << 0));
 	pkt.arg3 = player[playerid].x;
 	pkt.arg4 = player[playerid].y;
 
@@ -121,7 +121,7 @@ void processKillPacket(NetPacket *pkt)
 			for (c4 = 0; c4 < 10; c4++)
 				add_object(OBJ_FLESH, (x >> 16) + 6 + rnd(5), (y >> 16) + 6 + rnd(5), (rnd(65535) - 32768) * 3, (rnd(65535) - 32768) * 3, 0, 79);
 		}
-		dj_play_sfx(SFX_DEATH, (unsigned short)(SFX_DEATH_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
+		dj_play_sfx(SFX_DEATH, (unsigned short) (SFX_DEATH_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
 		player[c1].bumps++;
 		if (player[c1].bumps >= JNB_END_SCORE) {
 			endscore_reached = 1;
@@ -142,12 +142,12 @@ SDLNet_SocketSet socketset = NULL;
 
 void bufToPacket(const char *buf, NetPacket *pkt)
 {
-	SDLNet_Write32(*((Uint32*) (buf +  0)), &pkt->cmd);
-	SDLNet_Write32(*((Uint32*) (buf +  4)), &pkt->arg);
-	SDLNet_Write32(*((Uint32*) (buf +  8)), &pkt->arg2);
-	SDLNet_Write32(*((Uint32*) (buf + 12)), &pkt->arg3);
-	SDLNet_Write32(*((Uint32*) (buf + 16)), &pkt->arg4);
-/*
+	SDLNet_Write32(*((Uint32 *) (buf + 0)), &pkt->cmd);
+	SDLNet_Write32(*((Uint32 *) (buf + 4)), &pkt->arg);
+	SDLNet_Write32(*((Uint32 *) (buf + 8)), &pkt->arg2);
+	SDLNet_Write32(*((Uint32 *) (buf + 12)), &pkt->arg3);
+	SDLNet_Write32(*((Uint32 *) (buf + 16)), &pkt->arg4);
+	/*
 	pkt->cmd               =        ntohl(*((unsigned long *) (buf +  0)));
 	pkt->arg               = (long) ntohl(*((unsigned long *) (buf +  4)));
 	pkt->arg2              = (long) ntohl(*((unsigned long *) (buf +  8)));
@@ -156,15 +156,14 @@ void bufToPacket(const char *buf, NetPacket *pkt)
 */
 }
 
-
 void packetToBuf(const NetPacket *pkt, char *buf)
 {
-	*((Uint32*) (buf +  0)) = SDLNet_Read32(&pkt->cmd);
-	*((Uint32*) (buf +  4)) = SDLNet_Read32(&pkt->arg);
-	*((Uint32*) (buf +  8)) = SDLNet_Read32(&pkt->arg2);
-	*((Uint32*) (buf + 12)) = SDLNet_Read32(&pkt->arg3);
-	*((Uint32*) (buf + 16)) = SDLNet_Read32(&pkt->arg4);
-/*
+	*((Uint32 *) (buf + 0)) = SDLNet_Read32(&pkt->cmd);
+	*((Uint32 *) (buf + 4)) = SDLNet_Read32(&pkt->arg);
+	*((Uint32 *) (buf + 8)) = SDLNet_Read32(&pkt->arg2);
+	*((Uint32 *) (buf + 12)) = SDLNet_Read32(&pkt->arg3);
+	*((Uint32 *) (buf + 16)) = SDLNet_Read32(&pkt->arg4);
+	/*
 	*((unsigned long *) (buf +  0)) = htonl(pkt->cmd);
 	*((unsigned long *) (buf +  4)) = htonl((unsigned long) pkt->arg);
 	*((unsigned long *) (buf +  8)) = htonl((unsigned long) pkt->arg2);
@@ -172,7 +171,6 @@ void packetToBuf(const NetPacket *pkt, char *buf)
 	*((unsigned long *) (buf + 16)) = htonl((unsigned long) pkt->arg4);
 */
 }
-
 
 void sendPacketToSock(TCPsocket s, NetPacket *pkt)
 {
@@ -197,16 +195,14 @@ void sendPacketToSock(TCPsocket s, NetPacket *pkt)
 	}
 }
 
-
 void sendPacket(int playerid, NetPacket *pkt)
 {
-	if ( (playerid < JNB_MAX_PLAYERS) && (playerid >= 0)) {
+	if ((playerid < JNB_MAX_PLAYERS) && (playerid >= 0)) {
 		if ((player[playerid].enabled) && (playerid != client_player_num)) {
 			sendPacketToSock(net_info[playerid].sock, pkt);
 		}
 	}
 }
-
 
 void sendPacketToAll(NetPacket *pkt)
 {
@@ -232,7 +228,7 @@ int grabPacket(TCPsocket s, SDLNet_SocketSet ss, NetPacket *pkt)
 	if (SDLNet_CheckSockets(ss, 0) <= 0)
 		return 0;
 
-	if(!SDLNet_SocketReady(s))
+	if (!SDLNet_SocketReady(s))
 		return 0;
 
 	rc = SDLNet_TCP_Recv(s, &buf[buf_count], NETPKTBUFSIZE - buf_count);
@@ -277,11 +273,11 @@ int serverRecvPacket(NetPacket *pkt)
 			pkt.arg4 = 0;
 			sendPacketToAll(&pkt);
 		} else if (rc > 0) {
-			return(i);  /* it's all good. */
+			return (i); /* it's all good. */
 		}
 	}
 
-	return(-1);  /* no packets available currently. */
+	return (-1); /* no packets available currently. */
 }
 
 void wait_for_greenlight(void)
@@ -294,7 +290,7 @@ void wait_for_greenlight(void)
 	do {
 		int rc;
 		while ((rc = grabPacket(sock, socketset, &pkt)) == 0) {
-			SDL_Delay(100);  /* nap and then try again. */
+			SDL_Delay(100); /* nap and then try again. */
 		}
 
 		if (rc < 0) {
@@ -402,7 +398,7 @@ int update_players_from_server(void)
 				SDLNet_TCP_Close(sock);
 				sock = NULL;
 				server_said_bye = 1;
-				return(0);
+				return (0);
 			} else {
 				player[pkt.arg].enabled = 0;
 			}
@@ -419,7 +415,7 @@ int update_players_from_server(void)
 		}
 	}
 
-	return(1);
+	return (1);
 }
 
 void serverSendAlive(int playerid)
@@ -444,13 +440,13 @@ void update_players_from_clients(void)
 
 	while ((playerid = serverRecvPacket(&pkt)) >= 0) {
 		if (pkt.cmd == NETCMD_BYE) {
-			pkt.arg = playerid;  /* just in case. */
+			pkt.arg = playerid; /* just in case. */
 			sendPacketToAll(&pkt);
 			player[playerid].enabled = 0;
 			SDLNet_FreeSocketSet(net_info[playerid].socketset);
 			SDLNet_TCP_Close(net_info[playerid].sock);
 		} else if (pkt.cmd == NETCMD_POSITION) {
-			pkt.arg = playerid;  /* just in case. */
+			pkt.arg = playerid; /* just in case. */
 			processPositionPacket(&pkt);
 			for (i = 0; i < JNB_MAX_PLAYERS; i++) {
 				if (i != playerid) {
@@ -458,7 +454,7 @@ void update_players_from_clients(void)
 				}
 			}
 		} else if (pkt.cmd == NETCMD_MOVE) {
-			pkt.arg = playerid;  /* just in case. */
+			pkt.arg = playerid; /* just in case. */
 			/*
 			pkt.arg3 = player[playerid].x;
 			pkt.arg4 = player[playerid].y;
@@ -480,7 +476,7 @@ void init_server(const char *netarg)
 	const char *ipstr;
 
 	/** assign player number zero as default for the server */
-	if(-1 == client_player_num)
+	if (-1 == client_player_num)
 		client_player_num = 0;
 
 	if ((wait_for_clients >= JNB_MAX_PLAYERS) || (wait_for_clients < 0)) {
@@ -513,8 +509,7 @@ void init_server(const char *netarg)
 	socketset = SDLNet_AllocSocketSet(JNB_MAX_PLAYERS + 1);
 	SDLNet_TCP_AddSocket(socketset, sock);
 
-	while (wait_for_clients > 0)
-	{
+	while (wait_for_clients > 0) {
 		char buf[NETPKTBUFSIZE];
 		IPaddress *from;
 		int negatory = 1;
@@ -523,11 +518,10 @@ void init_server(const char *netarg)
 
 		/* Wait for events */
 		SDLNet_CheckSockets(socketset, ~0);
-		if ( SDLNet_SocketReady(sock) ) {
+		if (SDLNet_SocketReady(sock)) {
 			s = SDLNet_TCP_Accept(sock);
 
-			if (s == NULL)
-			{
+			if (s == NULL) {
 				fprintf(stderr, "SERVER: SDLNet_TCP_Accept(): %s", SDLNet_GetError());
 				SDLNet_TCP_Close(sock);
 				exit(42);
@@ -562,8 +556,8 @@ void init_server(const char *netarg)
 
 		if (-1 == pkt.arg) {
 			int i;
-			for(i=0; i!=JNB_MAX_PLAYERS; ++i) {
-				if(!player[i].enabled) {
+			for (i = 0; i != JNB_MAX_PLAYERS; ++i) {
+				if (!player[i].enabled) {
 					printf("SERVER: assigning %d as player number\n", i);
 					pkt.arg = i;
 					break;
@@ -571,7 +565,7 @@ void init_server(const char *netarg)
 			}
 		}
 
-		if ((pkt.arg>=JNB_MAX_PLAYERS)||(pkt.arg<0)) {
+		if ((pkt.arg >= JNB_MAX_PLAYERS) || (pkt.arg < 0)) {
 			printf("SERVER:  (that's an invalid player number.)\n");
 		} else if (player[pkt.arg].enabled) {
 			printf("SERVER:  (that player number is already taken.)\n");
@@ -597,7 +591,7 @@ void init_server(const char *netarg)
 		}
 	}
 
-	SDLNet_TCP_Close(sock);  /* done with the listen socket. */
+	SDLNet_TCP_Close(sock); /* done with the listen socket. */
 	SDLNet_FreeSocketSet(socketset);
 	sock = NULL;
 	socketset = NULL;

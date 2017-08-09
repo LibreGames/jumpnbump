@@ -27,8 +27,8 @@
 #define __FILTER_H__
 
 void do_scale2x(unsigned char *src,
-		int src_width,
-		int src_height,
-		unsigned char *dst);
+				int src_width,
+				int src_height,
+				unsigned char *dst);
 
 #endif /* __FILTER_H__ */

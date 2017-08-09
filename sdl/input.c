@@ -25,14 +25,14 @@
 
 #include "globals.h"
 
-static int num_joys=0;
+static int num_joys = 0;
 static SDL_Joystick *joys[4];
 
 /* assumes joysticks have at least one button, could check numbuttons first? */
-#define JOY_LEFT(num) (num_joys>num && SDL_JoystickGetAxis(joys[num], 0)<-3200)
-#define JOY_RIGHT(num) (num_joys>num && SDL_JoystickGetAxis(joys[num], 0)>3200)
+#define JOY_LEFT(num) (num_joys > num && SDL_JoystickGetAxis(joys[num], 0) < -3200)
+#define JOY_RIGHT(num) (num_joys > num && SDL_JoystickGetAxis(joys[num], 0) > 3200)
 /* I find using the vertical axis to be annoying -- dnb */
-#define JOY_JUMP(num) (num_joys>num && SDL_JoystickGetButton(joys[num], 0))
+#define JOY_JUMP(num) (num_joys > num && SDL_JoystickGetButton(joys[num], 0))
 
 int calib_joy(int type)
 {
@@ -76,13 +76,13 @@ void update_player_actions(void)
 
 		tmp = (key_pressed(KEY_PL4_LEFT) == 1) || JOY_LEFT(0);
 		if (tmp != player[3].action_left)
-		tellServerPlayerMoved(3, MOVEMENT_LEFT, tmp);
+			tellServerPlayerMoved(3, MOVEMENT_LEFT, tmp);
 		tmp = (key_pressed(KEY_PL4_RIGHT) == 1) || JOY_RIGHT(0);
 		if (tmp != player[3].action_right)
-		tellServerPlayerMoved(3, MOVEMENT_RIGHT, tmp);
+			tellServerPlayerMoved(3, MOVEMENT_RIGHT, tmp);
 		tmp = (key_pressed(KEY_PL4_JUMP) == 1) || JOY_JUMP(0);
 		if (tmp != player[3].action_up)
-		tellServerPlayerMoved(3, MOVEMENT_UP, tmp);
+			tellServerPlayerMoved(3, MOVEMENT_UP, tmp);
 	} else {
 		tmp = (key_pressed(KEY_PL1_LEFT) == 1) || JOY_LEFT(0);
 		if (tmp != player[client_player_num].action_left)
@@ -101,7 +101,7 @@ void init_inputs(void)
 	int i;
 
 	num_joys = SDL_NumJoysticks();
-	for(i = 0; i < 4 && i < num_joys; ++i)
+	for (i = 0; i < 4 && i < num_joys; ++i)
 		joys[i] = SDL_JoystickOpen(i);
 
 	main_info.mouse_enabled = 0;

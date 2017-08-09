@@ -1,0 +1,13 @@
+---
+BasedOnStyle:  LLVM
+---
+Language:                               Cpp
+UseTab:                                 ForContinuationAndIndentation
+TabWidth:                               4
+IndentWidth:                            4
+AllowShortIfStatementsOnASingleLine:    false
+ColumnLimit:                            0
+BreakBeforeBraces:                      Linux
+SpaceAfterCStyleCast:                   true
+IndentCaseLabels:                       true
+...

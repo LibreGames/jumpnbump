@@ -33,7 +33,7 @@ char menu_pal[768];
 char menu_cur_pal[768];
 
 char *message[] = {
-	"Jump 'n Bump "JNB_VERSION,
+	"Jump 'n Bump " JNB_VERSION,
 	"by Brainchild Design in 1998.",
 	"Code by Mattias Brynervall.",
 	"Graphics by Martin Magnusson",
@@ -47,10 +47,9 @@ char *message[] = {
 	"libregames.gitlab.io/jumpnbump",
 	"Jump 'n Bump is free software",
 	"licensed under GPL 2.0 or later.",
-	""
-};
+	""};
 
-#define NUM_MESSAGES (sizeof(message)/sizeof(char *))
+#define NUM_MESSAGES (sizeof(message) / sizeof(char *))
 
 int menu(void)
 {
@@ -86,7 +85,7 @@ int menu(void)
 	mod_vol = 0;
 	mod_fade_direction = 1;
 	dj_ready_mod(MOD_MENU);
-	dj_set_mod_volume((char)mod_vol);
+	dj_set_mod_volume((char) mod_vol);
 	dj_set_sfx_volume(64);
 	dj_start_mod();
 	dj_set_nosound(0);
@@ -111,7 +110,7 @@ int menu(void)
 
 		dj_mix();
 
-		for(c1 = 0; c1 < JNB_MAX_PLAYERS; c1++)		// set AI to false
+		for (c1 = 0; c1 < JNB_MAX_PLAYERS; c1++) // set AI to false
 			ai[c1] = 0;
 
 		while (update_count) {
@@ -344,7 +343,7 @@ int menu(void)
 								player[c1].frame_tick = 0;
 								player[c1].image = player_anims[player[c1].anim].frame[player[c1].frame].image + player[c1].direction * 9;
 								player[c1].jump_ready = 0;
-								dj_play_sfx(SFX_JUMP, (unsigned short)(SFX_JUMP_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
+								dj_play_sfx(SFX_JUMP, (unsigned short) (SFX_JUMP_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
 							}
 						} else {
 							if ((player[c1].y >> 16) >= (138 + c1 * 2)) {
@@ -354,7 +353,7 @@ int menu(void)
 								player[c1].frame_tick = 0;
 								player[c1].image = player_anims[player[c1].anim].frame[player[c1].frame].image + player[c1].direction * 9;
 								player[c1].jump_ready = 0;
-								dj_play_sfx(SFX_JUMP, (unsigned short)(SFX_JUMP_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
+								dj_play_sfx(SFX_JUMP, (unsigned short) (SFX_JUMP_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
 							}
 						}
 					}
@@ -449,12 +448,12 @@ int menu(void)
 				if (mod_fade_direction == 1) {
 					if (mod_vol < 35) {
 						mod_vol++;
-						dj_set_mod_volume((char)mod_vol);
+						dj_set_mod_volume((char) mod_vol);
 					}
 				} else {
 					if (mod_vol > 0) {
 						mod_vol--;
-						dj_set_mod_volume((char)mod_vol);
+						dj_set_mod_volume((char) mod_vol);
 					}
 				}
 			}
@@ -477,40 +476,40 @@ int menu(void)
 					return 1;
 			}
 			switch (fade_dir) {
-			case 0:
-				if (fade_count < 30) {
-					for (c1 = 0; c1 < 48; c1++) {
-						if (fade_pal[c1] > 0)
-							fade_pal[c1]--;
-					}
-					fade_count++;
-				} else {
-					draw_begin();
-					clear_lines(0, 220, 20, 0);
-					clear_lines(1, 220, 20, 0);
+				case 0:
+					if (fade_count < 30) {
+						for (c1 = 0; c1 < 48; c1++) {
+							if (fade_pal[c1] > 0)
+								fade_pal[c1]--;
+						}
+						fade_count++;
+					} else {
+						draw_begin();
+						clear_lines(0, 220, 20, 0);
+						clear_lines(1, 220, 20, 0);
 
-					cur_message++;
-					if (cur_message >= NUM_MESSAGES)
-						cur_message -= NUM_MESSAGES;
-					put_text(0, 200, 220, message[cur_message], 2);
-					put_text(1, 200, 220, message[cur_message], 2);
-					fade_dir = 1;
-					fade_count = 0;
-					draw_end();
-				}
-				break;
-			case 1:
-				if (fade_count < 100) {
-					for (c1 = 0; c1 < 48; c1++) {
-						if (fade_pal[c1] < menu_pal[c1 + 720])
-							fade_pal[c1]++;
+						cur_message++;
+						if (cur_message >= NUM_MESSAGES)
+							cur_message -= NUM_MESSAGES;
+						put_text(0, 200, 220, message[cur_message], 2);
+						put_text(1, 200, 220, message[cur_message], 2);
+						fade_dir = 1;
+						fade_count = 0;
+						draw_end();
 					}
-					fade_count++;
-				} else {
-					fade_dir = 0;
-					fade_count = 0;
-				}
-				break;
+					break;
+				case 1:
+					if (fade_count < 100) {
+						for (c1 = 0; c1 < 48; c1++) {
+							if (fade_pal[c1] < menu_pal[c1 + 720])
+								fade_pal[c1]++;
+						}
+						fade_count++;
+					} else {
+						fade_dir = 0;
+						fade_count = 0;
+					}
+					break;
 			}
 
 			for (c1 = 0; c1 < 48; c1++) {
@@ -545,14 +544,11 @@ int menu(void)
 		}
 
 		update_count = intr_sysupdate();
-
 	}
 
 	menu_deinit();
 	return 0;
-
 }
-
 
 int menu_init(void)
 {
@@ -565,7 +561,7 @@ int menu_init(void)
 		strcpy(main_info.error_str, "Error loading 'menu.pcx', aborting...\n");
 		return 1;
 	}
-	if (read_pcx(handle, background_pic, JNB_WIDTH*JNB_HEIGHT, menu_pal) != 0) {
+	if (read_pcx(handle, background_pic, JNB_WIDTH * JNB_HEIGHT, menu_pal) != 0) {
 		strcpy(main_info.error_str, "Error loading 'menu.pcx', aborting...\n");
 		return 1;
 	}
@@ -573,7 +569,7 @@ int menu_init(void)
 		strcpy(main_info.error_str, "Error loading 'menumask.pcx', aborting...\n");
 		return 1;
 	}
-	if (read_pcx(handle, mask_pic, JNB_WIDTH*JNB_HEIGHT, 0) != 0) {
+	if (read_pcx(handle, mask_pic, JNB_WIDTH * JNB_HEIGHT, 0) != 0) {
 		strcpy(main_info.error_str, "Error loading 'menumask.pcx', aborting...\n");
 		return 1;
 	}
@@ -613,9 +609,7 @@ int menu_init(void)
 	main_info.page_info[1].num_pobs = 0;
 
 	return 0;
-
 }
-
 
 void menu_deinit(void)
 {

@@ -12,9 +12,9 @@ typedef struct {
 	void **orig_data;
 } gob_t;
 
-static void read_pcx(FILE * handle, void *buf, int buf_len, char *pal)
+static void read_pcx(FILE *handle, void *buf, int buf_len, char *pal)
 {
-	unsigned char *buffer=buf;
+	unsigned char *buffer = buf;
 	short c1;
 	short a, b;
 	long ofs1;
@@ -41,7 +41,7 @@ static void read_pcx(FILE * handle, void *buf, int buf_len, char *pal)
 
 static void write_pcx(FILE *pcxfile, unsigned char *data, int width, int height, unsigned char *palette)
 {
-	int    i;
+	int i;
 
 	fputc(0x0a, pcxfile); /* manufacturer */
 	fputc(5, pcxfile); /* version */
@@ -72,11 +72,10 @@ static void write_pcx(FILE *pcxfile, unsigned char *data, int width, int height,
 
 	/* pack the image */
 
-	for (i = 0 ; i < width*height ; i++)
-		if ( (*data & 0xc0) != 0xc0)
+	for (i = 0; i < width * height; i++)
+		if ((*data & 0xc0) != 0xc0)
 			fputc(*data++, pcxfile);
-		else
-		{
+		else {
 			fputc(0xc1, pcxfile);
 			fputc(*data++, pcxfile);
 		}
@@ -85,10 +84,10 @@ static void write_pcx(FILE *pcxfile, unsigned char *data, int width, int height,
 
 	fputc(0x0c, pcxfile); /* palette ID byte */
 	if (palette)
-		for (i = 0 ; i < 768 ; i++)
+		for (i = 0; i < 768; i++)
 			fputc(*palette++, pcxfile);
 	else
-		for (i = 0 ; i < 768 ; i++)
+		for (i = 0; i < 768; i++)
 			fputc(i / 3, pcxfile);
 }
 
@@ -100,29 +99,33 @@ int read_gob(FILE *handle, gob_t *gob, int len)
 	gob_data = malloc(len);
 	fread(gob_data, 1, len, handle);
 
-	gob->num_images = (short)((gob_data[0]) + (gob_data[1] << 8));
+	gob->num_images = (short) ((gob_data[0]) + (gob_data[1] << 8));
 
-	gob->width = malloc(gob->num_images*sizeof(int));
-	gob->height = malloc(gob->num_images*sizeof(int));
-	gob->hs_x = malloc(gob->num_images*sizeof(int));
-	gob->hs_y = malloc(gob->num_images*sizeof(int));
-	gob->data = malloc(gob->num_images*sizeof(void *));
-	gob->orig_data = malloc(gob->num_images*sizeof(void *));
-	for (i=0; i<gob->num_images; i++) {
+	gob->width = malloc(gob->num_images * sizeof(int));
+	gob->height = malloc(gob->num_images * sizeof(int));
+	gob->hs_x = malloc(gob->num_images * sizeof(int));
+	gob->hs_y = malloc(gob->num_images * sizeof(int));
+	gob->data = malloc(gob->num_images * sizeof(void *));
+	gob->orig_data = malloc(gob->num_images * sizeof(void *));
+	for (i = 0; i < gob->num_images; i++) {
 		int image_size;
 		int offset;
 
-		offset = (gob_data[i*4+2]) + (gob_data[i*4+3] << 8) + (gob_data[i*4+4] << 16) + (gob_data[i*4+5] << 24);
+		offset = (gob_data[i * 4 + 2]) + (gob_data[i * 4 + 3] << 8) + (gob_data[i * 4 + 4] << 16) + (gob_data[i * 4 + 5] << 24);
 
-		gob->width[i]  = (short)((gob_data[offset]) + (gob_data[offset+1] << 8)); offset += 2;
-		gob->height[i] = (short)((gob_data[offset]) + (gob_data[offset+1] << 8)); offset += 2;
-		gob->hs_x[i]   = (short)((gob_data[offset]) + (gob_data[offset+1] << 8)); offset += 2;
-		gob->hs_y[i]   = (short)((gob_data[offset]) + (gob_data[offset+1] << 8)); offset += 2;
+		gob->width[i] = (short) ((gob_data[offset]) + (gob_data[offset + 1] << 8));
+		offset += 2;
+		gob->height[i] = (short) ((gob_data[offset]) + (gob_data[offset + 1] << 8));
+		offset += 2;
+		gob->hs_x[i] = (short) ((gob_data[offset]) + (gob_data[offset + 1] << 8));
+		offset += 2;
+		gob->hs_y[i] = (short) ((gob_data[offset]) + (gob_data[offset + 1] << 8));
+		offset += 2;
 
 		image_size = gob->width[i] * gob->height[i];
 		gob->orig_data[i] = malloc(image_size);
 		memcpy(gob->orig_data[i], &gob_data[offset], image_size);
-		gob->data[i] = (unsigned short *)gob->orig_data[i];
+		gob->data[i] = (unsigned short *) gob->orig_data[i];
 	}
 	free(gob_data);
 	return 0;
@@ -138,7 +141,7 @@ int write_gob(FILE *handle, gob_t *gob)
 
 	offset = 2 + (gob->num_images * 4);
 
-	for (i=0; i<gob->num_images; i++) {
+	for (i = 0; i < gob->num_images; i++) {
 		fputc((offset >> 0) & 0xff, handle);
 		fputc((offset >> 8) & 0xff, handle);
 		fputc((offset >> 16) & 0xff, handle);
@@ -147,7 +150,7 @@ int write_gob(FILE *handle, gob_t *gob)
 		offset += 8;
 		offset += gob->width[i] * gob->height[i];
 	}
-	for (i=0; i<gob->num_images; i++) {
+	for (i = 0; i < gob->num_images; i++) {
 		fputc((gob->width[i] >> 0) & 0xff, handle);
 		fputc((gob->width[i] >> 8) & 0xff, handle);
 
@@ -186,7 +189,7 @@ int main(int argc, char **argv)
 			} else
 				usage = 1;
 		}
-	
+
 	if (usage) {
 		printf("Usage: gobpack [-u] <file> [palette.pcx]\n\t-u to unpack the gob\n");
 		return 1;
@@ -244,22 +247,22 @@ int main(int argc, char **argv)
 			if (gob.width[i] > width)
 				width = gob.width[i];
 		}
-		width+=2;
-		height+=2;
+		width += 2;
+		height += 2;
 
-		data = malloc(400*256);
+		data = malloc(400 * 256);
 		if (!data) {
 			printf("Not enough memory!\n");
 			return -1;
 		}
-		memset(data, 0, 400*256);
+		memset(data, 0, 400 * 256);
 
 		x_count = 400 / width;
 		y_count = 256 / width;
 
 		for (yi = 0; yi < y_count; yi++) {
 			for (xi = 0; xi < x_count; xi++) {
-				int x,y;
+				int x, y;
 				unsigned char *src;
 
 				i = yi * x_count + xi;
@@ -275,7 +278,7 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-		
+
 		strcpy(filename, argv[2]);
 		strcat(filename, ".pcx");
 		f = fopen(filename, "wb");
@@ -299,7 +302,7 @@ int main(int argc, char **argv)
 		fprintf(f, "num_images: %i\n\n", gob.num_images);
 		for (yi = 0; yi < y_count; yi++) {
 			for (xi = 0; xi < x_count; xi++) {
-				
+
 				i = yi * x_count + xi;
 				if (i >= gob.num_images)
 					continue;
@@ -321,7 +324,7 @@ int main(int argc, char **argv)
 		int i = 0;
 		int x_pos = 0, y_pos = 0;
 
-		data = malloc(400*256);
+		data = malloc(400 * 256);
 		if (!data) {
 			printf("Not enough memory!\n");
 			return -1;
@@ -341,7 +344,7 @@ int main(int argc, char **argv)
 			return -1;
 		}
 
-		read_pcx(f, data, 400*256, NULL);
+		read_pcx(f, data, 400 * 256, NULL);
 
 		fclose(f);
 
@@ -366,12 +369,12 @@ int main(int argc, char **argv)
 					return -1;
 				}
 				gob.num_images = value;
-				gob.width = malloc(gob.num_images*sizeof(int));
-				gob.height = malloc(gob.num_images*sizeof(int));
-				gob.hs_x = malloc(gob.num_images*sizeof(int));
-				gob.hs_y = malloc(gob.num_images*sizeof(int));
-				gob.data = malloc(gob.num_images*sizeof(void *));
-				gob.orig_data = malloc(gob.num_images*sizeof(void *));
+				gob.width = malloc(gob.num_images * sizeof(int));
+				gob.height = malloc(gob.num_images * sizeof(int));
+				gob.hs_x = malloc(gob.num_images * sizeof(int));
+				gob.hs_y = malloc(gob.num_images * sizeof(int));
+				gob.data = malloc(gob.num_images * sizeof(void *));
+				gob.orig_data = malloc(gob.num_images * sizeof(void *));
 			} else if (strcmp(buffer, "image:") == 0) {
 				i = value - 1;
 			} else if (strcmp(buffer, "x:") == 0) {
