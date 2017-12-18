@@ -1,5 +1,7 @@
 # Jump 'n Bump
 
+![Screenshot](/dist/screenshot.png "Screenshot")
+
 This is a game for the whole family. You play cute fluffy little bunnies and
 hop on each other's heads.
 
