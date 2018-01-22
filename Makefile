@@ -27,7 +27,7 @@ BINARIES = $(TARGET) $(MODIFY_TARGET)
 
 .PHONY: data modify
 
-all: $(BINARIES) jnbmenu
+all: $(BINARIES)
 
 $(SDL_TARGET): globals.h
 	$(MAKE) -C sdl
@@ -71,13 +71,11 @@ install:
 		$(DESTDIR)$(DATADIR)/appdata/jumpnbump.appdata.xml
 	install -m 644 dist/jumpnbump.desktop \
 		$(DESTDIR)$(DATADIR)/applications/jumpnbump.desktop
-	install -m 644 dist/jumpnbump-menu.desktop \
-		$(DESTDIR)$(DATADIR)/applications/jumpnbump-menu.desktop
 	install -m 644 dist/jumpnbump.png \
 		$(DESTDIR)$(DATADIR)/icons/jumpnbump.png
 	install -m 644 dist/jumpnbump.6 $(DESTDIR)$(DATADIR)/man/man6/
 
-	$(MAKE) -C menu install
+#	$(MAKE) -C menu install
 
 uninstall:
 	for bin in $(BINARIES); do $(RM) $(DESTDIR)$(BINDIR)/$$bin; done
