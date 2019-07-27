@@ -38,16 +38,20 @@ char last_keys[50];
 
 int addkey(unsigned int key)
 {
-	int c1;
-
-	if (!(key & 0x8000)) {
+	if (!(key & 0x8000))
 		keyb[key & 0x7fff] = 1;
-		for (c1 = 48; c1 > 0; c1--)
-			last_keys[c1] = last_keys[c1 - 1];
-		last_keys[0] = key & 0x7fff;
-	} else
+	else
 		keyb[key & 0x7fff] = 0;
 	return 0;
+}
+
+void add_last_key(unsigned int key)
+{
+	int c1;
+
+	for (c1 = 48; c1 > 0; c1--)
+		last_keys[c1] = last_keys[c1 - 1];
+	last_keys[0] = key;
 }
 
 void remove_keyb_handler(void)
@@ -185,8 +189,10 @@ int intr_sysupdate()
 						break;
 					default:
 						e.key.keysym.scancode &= 0x7fff;
-						if (e.type == SDL_KEYUP)
+						if (e.type == SDL_KEYUP) {
 							e.key.keysym.scancode |= 0x8000;
+							add_last_key(e.key.keysym.sym);
+						}
 						addkey(e.key.keysym.scancode);
 						break;
 				}
