@@ -1,6 +1,6 @@
 # Jump 'n Bump Menu
 
-Launcher GUI in Python/GTK+2 for Jump 'n Bump. It allows setting various
+Launcher GUI in Python/GTK+3 for Jump 'n Bump. It allows setting various
 command line options graphically, including loading additional levels
 packaged in the standard path (defined by `GAMEDATADIR` in the Makefile),
 or in `~/.jumpnbump/levels/`.
@@ -13,8 +13,8 @@ Makefile to initialize some packaging-specific constants.
 ## Dependencies
 
 - Jump 'n Bump
-- Python 2
-- PyGTK+
+- Python 3
+- PyGObject
 - ImageMagick
 
 ## History
