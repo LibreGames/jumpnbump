@@ -1,3 +1,12 @@
+(unreleased) - 1.61
+  - Ported jumpnbump-menu to Python 3 and GTK+3
+  - jumpnbump-menu is no longer installed by default, use `make install -C menu`
+    to install it
+  - Fixed using jetpack and other cheats (regression from SDL2 port)
+  - Updated in-game credits
+  - Move appdata file to metainfo directory (Linux)
+  - Packaging fixes and cleanups
+
 24 May 2017 - 1.60
   - Ported to SDL2
   - Window can now be resized
