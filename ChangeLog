@@ -1,4 +1,4 @@
-(unreleased) - 1.61
+2 Sep 2019 - 1.61
   - Ported jumpnbump-menu to Python 3 and GTK+3
   - jumpnbump-menu is no longer installed by default, use `make install -C menu`
     to install it
