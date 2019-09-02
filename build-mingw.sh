@@ -8,10 +8,18 @@ if [[ $# -ge 1 ]]; then
     echo "Usage: <script> [options]"
     echo -e "\nAvailable options:"
     echo -e "\t--help, -h\tThis usage explanation."
+    echo -e "\t--builddeps\tInstall build dependencies (dnf)."
     echo -e "\t--32\t\tBuild 32-bit binary with MinGW-w64."
     echo -e "\t--64\t\tBuild 64-bit binary with MinGW-w64."
     echo -e "\t--clean, -c\tClean build artifacts."
     echo ""
+    exit 0
+    ;;
+    --builddeps)
+    sudo dnf install -y mingw32-bzip2 mingw32-flac mingw32-gcc mingw32-libmodplug mingw32-libogg mingw32-libvorbis \
+        mingw32-winpthreads mingw32-SDL2 mingw32-SDL2_mixer mingw32-SDL2_net mingw32-zlib
+    sudo dnf install -y mingw64-bzip2 mingw64-flac mingw64-gcc mingw64-libmodplug mingw64-libogg mingw64-libvorbis \
+        mingw64-winpthreads mingw64-SDL2 mingw64-SDL2_mixer mingw64-SDL2_net mingw64-zlib
     exit 0
     ;;
     --32)
