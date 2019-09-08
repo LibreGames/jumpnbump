@@ -15,7 +15,7 @@ Makefile to initialize some packaging-specific constants.
 - Jump 'n Bump
 - Python 3
 - PyGObject
-- ImageMagick
+- Pillow
 
 ## History
 
