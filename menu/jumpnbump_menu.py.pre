@@ -28,6 +28,8 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
 
+from PIL import Image
+
 RESOURCE_DIR = '%%DATADIR%%/jumpnbump'
 BINARY_DIR = '%%BINDIR%%'
 UNPACK_BIN = '%%UNPACKBIN%%'
@@ -114,10 +116,11 @@ def level_changed(widget):
         os.chdir(unpackdir)
         os.spawnlp(os.P_WAIT, UNPACK_BIN,
                    'unpack', choosen_level)
-        os.spawnlp(os.P_WAIT, 'convert', 'convert', '-scale',
-                   '50%', 'level.pcx', 'level_scaled.pcx')
-        os.spawnlp(os.P_WAIT, 'convert', 'convert',
-                   'level_scaled.pcx', 'level.png')
+        im = Image.open('level.pcx')
+        w, h = im.size
+        im.thumbnail([w/2, h/2], Image.ANTIALIAS)
+        im.save('level.png')
+        im.close()
         image.set_from_file('level.png')
     except Exception as err:
         print(err)
