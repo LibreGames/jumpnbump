@@ -2,7 +2,7 @@
 .SH NAME
 jumpnbump \- Cute multiplayer platform game with bunnies
 .SH SYNOPSIS
-jumpnbump \fR[\fB-dat \fIlevelname\fR] [\fB-port \fIport \fB-net \fIplayer hostname rport\fR] [\fB-fullscreen\fR] [\fB-nosound\fR] [\fB-musicnosound\fR] [\fB-nogore\fR] [\fB-noflies\fR] [\fB-mirror\fR] [\fB-scaleup\fR] [\fB-v\fR] [\fB-h\fR]
+jumpnbump \fR[\fB-dat \fIlevelname\fR] [\fB-server \fIclients_number\fR] [\fB-connect \fIhostname\fR] [\fB-fullscreen\fR] [\fB-nosound\fR] [\fB-musicnosound\fR] [\fB-nogore\fR] [\fB-noflies\fR] [\fB-mirror\fR] [\fB-scaleup\fR] [\fB-v\fR] [\fB-h\fR]
 .SH DESCRIPTION
 You, as a bunny, have to jump on your opponents to make them
 explode. It's a true multiplayer game, you can't play this alone.
@@ -10,13 +10,11 @@ It has network support.
 .SH OPTIONS
 .IP "-dat \fIlevelname\fR"
 Load \fIlevelname\fR and use it as the level for this game.
-.IP "-port \fIport\fR"
-Use \fIport\fR as the port to listen on for a network game. Use this
-with -net.
-.IP "-net \fIplayer hostname rport"
-Connect (using a network) to another person running Jump 'n Bump on
-\fIhostname\fR, and listening on \fIrport\fR. You will be player
-number \fIplayer\fR.
+.IP "-server \fIclients_number\fR"
+Start as a server waiting on port TCP 11111 and wait for \fIclient_numbers\fR
+clients to connect before starting the game.
+.IP "-connect \fIhostname"
+Connect (using IP network) to remote server \fIhostname\fR.
 .IP "-fullscreen"
 Run Jump 'n Bump in fullscreen mode.
 .IP "-nosound"
