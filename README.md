@@ -42,12 +42,12 @@ You can launch them with `jumpnbump -dat levelname.dat`.
 Jump 'n Bump can be played in multiplayer over the network. This can be done
 with these commands:
 
-Player 1: `jumpnbump -port 7777 -net 0 <ip_or_hostname_of_player2> <port_of_player2>`
-Player 2: `jumpnbump -port 7777 -net 1 <ip_or_hostname_of_player1> <port_of_player1>`
+Player 1: `jumpnbump -server 1`
+Player 2: `jumpnbump -connect <ip_or_hostname_of_player1>`
 
-You have to make sure that the port udp/7777 is open in your firewall.
+You have to make sure that the port tcp/11111 is open in your firewall.
 
-You can add -net 2 and -net 3 for 3rd and 4th player, and make sure that all
+You can add -server 2 and -server 3 for 3rd and 4th player, and make sure that all
 the players are using the same `-dat level.dat`, if any.
 
 ## Compilation
