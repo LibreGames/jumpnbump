@@ -4,7 +4,7 @@ GOBPACK = ../gobpack$(EXE)
 JNBPACK = ../jnbpack$(EXE)
 GOBS = font.gob numbers.gob objects.gob rabbit.gob
 DATAFILES = bump.mod calib.dat death.smp fly.smp jump.mod \
-	jump.smp levelmap.txt level.pcx mask.pcx menu.pcx \
+	jump.smp levelmap.txt level.pcx mask.pcx menu.pcx endmenu.pcx \
 	menumask.pcx $(GOBS) scores.mod splash.smp spring.smp
 
 all: jumpbump.dat
