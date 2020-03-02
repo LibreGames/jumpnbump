@@ -74,7 +74,7 @@ typedef struct
 	SDLNet_SocketSet socketset;
 } NetInfo;
 
-NetInfo net_info[JNB_MAX_PLAYERS];
+extern NetInfo net_info[JNB_MAX_PLAYERS];
 
 void bufToPacket(const char *buf, NetPacket *pkt);
 

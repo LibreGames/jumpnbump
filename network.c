@@ -32,6 +32,10 @@ int is_server = 1;
 int is_net = 0;
 int server_said_bye = 0;
 
+#ifdef USE_NET
+NetInfo net_info[JNB_MAX_PLAYERS];
+#endif
+
 void processMovePacket(NetPacket *pkt)
 {
 	int playerid = pkt->arg;

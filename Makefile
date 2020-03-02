@@ -6,7 +6,7 @@ DATADIR ?= $(PREFIX)/share
 GAMEDATADIR ?= $(DATADIR)
 EXE ?=
 
-CFLAGS ?= -Wall -O2 -ffast-math -funroll-loops
+CFLAGS ?= -Wall -O2 -ffast-math -funroll-loops -fno-common
 SDL_CFLAGS = `sdl2-config --cflags`
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -DNDEBUG -DUSE_SDL -DUSE_NET -DZLIB_SUPPORT -DBZLIB_SUPPORT
 INCLUDES = -I.

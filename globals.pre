@@ -267,7 +267,7 @@ extern gob_t number_gobs;
 
 /* main.c */
 
-int endscore_reached;
+extern int endscore_reached;
 
 void steer_players(void);
 void position_player(int player_num);
