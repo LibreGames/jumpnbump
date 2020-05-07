@@ -781,7 +781,19 @@ static int menu_loop(void)
 
 		register_background(NULL, NULL);
 
+		main_info.page_info[0].num_pobs = 0;
+		main_info.page_info[1].num_pobs = 0;
+
+		for (c1 = 0; c1 < JNB_MAX_PLAYERS; c1++) {
+			static const int x[] = {100, 160, 220, 280}, y[] = {80, 110, 140, 170};
+
+			add_pob(main_info.view_page, x[c1] - 5, 30, player[c1].image + c1 * 18, &rabbit_gobs);
+			add_pob(main_info.view_page, 60, y[c1] - 2, player[c1].image + c1 * 18, &rabbit_gobs);
+		}
+
 		draw_begin();
+
+		draw_pobs(main_info.view_page);
 
 		put_text(main_info.view_page, 100, 50, "DOTT", 2);
 		put_text(main_info.view_page, 160, 50, "JIFFY", 2);
