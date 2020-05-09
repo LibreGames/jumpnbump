@@ -776,21 +776,33 @@ static int menu_loop(void)
 
 		deinit_level();
 
-		if ((handle = dat_open("endmenu.pcx")) == 0) {
-			strcpy(main_info.error_str, "Error loading 'endmenu.pcx', aborting...\n");
-			return 1;
-		}
-		if (read_pcx(handle, background_pic, JNB_WIDTH * JNB_HEIGHT, pal) != 0) {
-			strcpy(main_info.error_str, "Error loading 'endmenu.pcx', aborting...\n");
-			return 1;
-		}
-
 		memset(mask_pic, 0, JNB_WIDTH * JNB_HEIGHT);
 		register_mask(mask_pic);
 
-		register_background(background_pic, pal);
+		register_background(NULL, NULL);
+
+		main_info.page_info[main_info.view_page].num_pobs = 0;
+
+		for (c1 = 0; c1 < JNB_MAX_PLAYERS; c1++) {
+			static const int x[] = {100, 160, 220, 280}, y[] = {80, 110, 140, 170};
+
+			add_pob(main_info.view_page, 60, y[c1] - 2, c1 * 18, &rabbit_gobs);
+			// crushed sprites for the columns
+			add_pob(main_info.view_page, x[c1] - 5, 30, 17 + c1 * 18, &rabbit_gobs);
+		}
 
 		draw_begin();
+
+		draw_pobs(main_info.view_page);
+
+		put_text(main_info.view_page, 100, 50, "DOTT", 2);
+		put_text(main_info.view_page, 160, 50, "JIFFY", 2);
+		put_text(main_info.view_page, 220, 50, "FIZZ", 2);
+		put_text(main_info.view_page, 280, 50, "MIJJI", 2);
+		put_text(main_info.view_page, 40, 80, "DOTT", 2);
+		put_text(main_info.view_page, 40, 110, "JIFFY", 2);
+		put_text(main_info.view_page, 40, 140, "FIZZ", 2);
+		put_text(main_info.view_page, 40, 170, "MIJJI", 2);
 
 		for (c1 = 0; c1 < JNB_MAX_PLAYERS; c1++) {
 			if (!player[c1].enabled) {
