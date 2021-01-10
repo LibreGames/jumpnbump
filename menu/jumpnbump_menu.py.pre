@@ -160,9 +160,9 @@ def get_level():
     level = []
     if (mirror.get_active()):
         level.append('-mirror')
-    else:
-        level.append('-dat')
-        level.append(choosen_level)
+
+    level.append('-dat')
+    level.append(choosen_level)
 
     return level
 
