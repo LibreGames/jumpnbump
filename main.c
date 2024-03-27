@@ -90,6 +90,7 @@ unsigned int ban_map[17][22] = {
 
 #define GET_BAN_MAP_XY(x, y) ban_map[(y) >> 4][(x) >> 4]
 
+// clang-format off
 struct {
 	int num_frames;
 	int restart_frame;
@@ -212,6 +213,7 @@ struct {
 		}
 	}
 };
+// clang-format on
 
 int flies_enabled = 1;
 
@@ -1020,7 +1022,7 @@ void cpu_move(void)
 	for (i = 0; i < JNB_MAX_PLAYERS; i++) {
 		nearest_distance = -1;
 		if (ai[i] && player[i].enabled) // this player is a computer
-		{                               // get nearest target
+		{ // get nearest target
 			for (j = 0; j < JNB_MAX_PLAYERS; j++) {
 				int deltax, deltay;
 
@@ -1050,7 +1052,7 @@ void cpu_move(void)
 
 			/* X-axis movement */
 			if (tar_posx > cur_posx) // if true target is on the right side
-			{                        // go after him
+			{ // go after him
 				lm = 0;
 				rm = 1;
 			} else // target on the left side
@@ -1075,7 +1077,7 @@ void cpu_move(void)
 				 (i == 2 && key_pressed(KEY_PL3_JUMP)) ||
 				 (i == 3 && key_pressed(KEY_PL4_JUMP))))
 				jm = 0; // if we are on ground and jump key is being pressed,
-						//first we have to release it or else we won't be able to jump more than once
+						// first we have to release it or else we won't be able to jump more than once
 
 			else if (map_tile(cur_posx, cur_posy - 8) != BAN_VOID &&
 					 map_tile(cur_posx, cur_posy - 8) != BAN_WATER)
@@ -1084,7 +1086,7 @@ void cpu_move(void)
 			else if (map_tile(cur_posx - (lm * 8) + (rm * 16), cur_posy) != BAN_VOID &&
 					 map_tile(cur_posx - (lm * 8) + (rm * 16), cur_posy) != BAN_WATER &&
 					 cur_posx > 16 && cur_posx < 352 - 16 - 8) // obstacle, jump
-				jm = 1;                                        // if there is something on the way, jump over it
+				jm = 1; // if there is something on the way, jump over it
 
 			else if (((i == 0 && key_pressed(KEY_PL1_JUMP)) ||
 					  (i == 1 && key_pressed(KEY_PL2_JUMP)) ||

@@ -33,6 +33,7 @@ extern "C" {
 #endif
 
 #include "config.h"
+#include "dj.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -41,34 +42,27 @@ extern "C" {
 #ifndef _WIN32
 #include <strings.h>
 #endif
-#include <time.h>
 #include <math.h>
-#include <dj.h>
+#include <time.h>
 
 #ifdef DOS
-# include <conio.h>
-# include <dpmi.h>
-# include <sys/nearptr.h>
-# include <pc.h>
+#include <conio.h>
+#include <dpmi.h>
+#include <pc.h>
+#include <sys/nearptr.h>
 #endif
 
 #ifdef _WIN32
-# define WIN32_LEAN_AND_MEAN
-# include <windows.h>
-# include <sys/stat.h>
-# include <io.h>
-# include "SDL.h"
-# if USE_SDL_MIXER
-#  include "SDL_mixer.h"
-# endif
-#else
-# ifdef USE_SDL
-#  include <sys/stat.h>
-#  include "SDL.h"
-#  if USE_SDL_MIXER
-#   include "SDL_mixer.h"
-#  endif
-# endif
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <io.h>
+#endif
+
+#include <sys/stat.h>
+
+#include <SDL.h>
+#if USE_SDL_MIXER
+#include <SDL_mixer.h>
 #endif
 
 #define JNB_MAX_PLAYERS 4
@@ -85,7 +79,7 @@ void tellServerPlayerMoved(int playerid, int movement_type, int newval);
 
 #define JNB_VERSION "1.70-dev"
 
-#define JNB_WIDTH 400
+#define JNB_WIDTH  400
 #define JNB_HEIGHT 256
 
 extern int screen_width;
@@ -96,83 +90,83 @@ extern int scale_up;
 extern int ai[JNB_MAX_PLAYERS];
 
 #ifndef USE_SDL
-#define KEY_PL1_LEFT	0xcb
-#define KEY_PL1_RIGHT	0xcd
-#define KEY_PL1_JUMP	0xc8
-#define KEY_PL2_LEFT	0x1e
-#define KEY_PL2_RIGHT	0x20
-#define KEY_PL2_JUMP	0x11
+#define KEY_PL1_LEFT  0xcb
+#define KEY_PL1_RIGHT 0xcd
+#define KEY_PL1_JUMP  0xc8
+#define KEY_PL2_LEFT  0x1e
+#define KEY_PL2_RIGHT 0x20
+#define KEY_PL2_JUMP  0x11
 #else
-#define KEY_PL1_LEFT	SDL_SCANCODE_LEFT
-#define KEY_PL1_RIGHT	SDL_SCANCODE_RIGHT
-#define KEY_PL1_JUMP	SDL_SCANCODE_UP
-#define KEY_PL2_LEFT	SDL_SCANCODE_A
-#define KEY_PL2_RIGHT	SDL_SCANCODE_D
-#define KEY_PL2_JUMP	SDL_SCANCODE_W
-#define KEY_PL3_LEFT	SDL_SCANCODE_J
-#define KEY_PL3_RIGHT	SDL_SCANCODE_L
-#define KEY_PL3_JUMP	SDL_SCANCODE_I
-#define KEY_PL4_LEFT	SDL_SCANCODE_KP_4
-#define KEY_PL4_RIGHT	SDL_SCANCODE_KP_6
-#define KEY_PL4_JUMP	SDL_SCANCODE_KP_8
+#define KEY_PL1_LEFT  SDL_SCANCODE_LEFT
+#define KEY_PL1_RIGHT SDL_SCANCODE_RIGHT
+#define KEY_PL1_JUMP  SDL_SCANCODE_UP
+#define KEY_PL2_LEFT  SDL_SCANCODE_A
+#define KEY_PL2_RIGHT SDL_SCANCODE_D
+#define KEY_PL2_JUMP  SDL_SCANCODE_W
+#define KEY_PL3_LEFT  SDL_SCANCODE_J
+#define KEY_PL3_RIGHT SDL_SCANCODE_L
+#define KEY_PL3_JUMP  SDL_SCANCODE_I
+#define KEY_PL4_LEFT  SDL_SCANCODE_KP_4
+#define KEY_PL4_RIGHT SDL_SCANCODE_KP_6
+#define KEY_PL4_JUMP  SDL_SCANCODE_KP_8
 #endif
 
-#define NUM_POBS 200
-#define NUM_OBJECTS 200
-#define NUM_FLIES 20
+#define NUM_POBS      200
+#define NUM_OBJECTS   200
+#define NUM_FLIES     20
 #define NUM_LEFTOVERS 50
 
-#define OBJ_SPRING 0
-#define OBJ_SPLASH 1
-#define OBJ_SMOKE 2
-#define OBJ_YEL_BUTFLY 3
+#define OBJ_SPRING      0
+#define OBJ_SPLASH      1
+#define OBJ_SMOKE       2
+#define OBJ_YEL_BUTFLY  3
 #define OBJ_PINK_BUTFLY 4
-#define OBJ_FUR 5
-#define OBJ_FLESH 6
+#define OBJ_FUR         5
+#define OBJ_FLESH       6
 #define OBJ_FLESH_TRACE 7
 
-#define OBJ_ANIM_SPRING 0
-#define OBJ_ANIM_SPLASH 1
-#define OBJ_ANIM_SMOKE 2
-#define OBJ_ANIM_YEL_BUTFLY_RIGHT 3
-#define OBJ_ANIM_YEL_BUTFLY_LEFT 4
+#define OBJ_ANIM_SPRING            0
+#define OBJ_ANIM_SPLASH            1
+#define OBJ_ANIM_SMOKE             2
+#define OBJ_ANIM_YEL_BUTFLY_RIGHT  3
+#define OBJ_ANIM_YEL_BUTFLY_LEFT   4
 #define OBJ_ANIM_PINK_BUTFLY_RIGHT 5
-#define OBJ_ANIM_PINK_BUTFLY_LEFT 6
-#define OBJ_ANIM_FLESH_TRACE 7
+#define OBJ_ANIM_PINK_BUTFLY_LEFT  6
+#define OBJ_ANIM_FLESH_TRACE       7
 
-#define MOD_MENU 0
-#define MOD_GAME 1
+#define MOD_MENU   0
+#define MOD_GAME   1
 #define MOD_SCORES 2
 
-#define SFX_JUMP 0
-#define SFX_LAND 1
-#define SFX_DEATH 2
+#define SFX_JUMP   0
+#define SFX_LAND   1
+#define SFX_DEATH  2
 #define SFX_SPRING 3
 #define SFX_SPLASH 4
-#define SFX_FLY 5
+#define SFX_FLY    5
 
 #define NUM_SFX 6
 
-#define SFX_JUMP_FREQ 15000
-#define SFX_LAND_FREQ 15000
-#define SFX_DEATH_FREQ 20000
+#define SFX_JUMP_FREQ   15000
+#define SFX_LAND_FREQ   15000
+#define SFX_DEATH_FREQ  20000
 #define SFX_SPRING_FREQ 15000
 #define SFX_SPLASH_FREQ 12000
-#define SFX_FLY_FREQ 12000
+#define SFX_FLY_FREQ    12000
 
-#define BAN_VOID	0
-#define BAN_SOLID	1
-#define BAN_WATER	2
-#define BAN_ICE		3
-#define BAN_SPRING	4
+#define BAN_VOID   0
+#define BAN_SOLID  1
+#define BAN_WATER  2
+#define BAN_ICE    3
+#define BAN_SPRING 4
 
 #ifndef DATA_PATH
 #ifdef __APPLE__
-#define	DATA_PATH "data/jumpbump.dat"
+#define DATA_PATH "data/jumpbump.dat"
 #elif _WIN32
-#define	DATA_PATH "data/jumpbump.dat"
+#define DATA_PATH "data/jumpbump.dat"
 #else
-#define	DATA_PATH "%%DATADIR%%/jumpnbump/jumpbump.dat"
+#define DATA_PATH "%%DATADIR%%/jumpnbump/jumpbump.dat"
 #endif
 #endif
 
@@ -204,7 +198,7 @@ typedef struct {
 } main_info_t;
 
 typedef struct {
-	int action_left,action_up,action_right;
+	int action_left, action_up, action_right;
 	int enabled, dead_flag;
 	int bumps;
 	int bumped[JNB_MAX_PLAYERS];
@@ -264,7 +258,6 @@ extern gob_t font_gobs;
 extern gob_t object_gobs;
 extern gob_t number_gobs;
 
-
 /* main.c */
 
 extern int endscore_reached;
@@ -290,7 +283,6 @@ unsigned char *dat_open(char *file_name);
 int dat_filelen(char *file_name);
 void write_calib_data(void);
 
-
 /* input.c */
 
 void update_player_actions(void);
@@ -302,7 +294,6 @@ int calib_joy(int type);
 int menu(void);
 int menu_init(void);
 void menu_deinit(void);
-
 
 /* gfx.c */
 
@@ -333,7 +324,7 @@ int pob_width(int image, gob_t *gob);
 int pob_height(int image, gob_t *gob);
 int pob_hs_x(int image, gob_t *gob);
 int pob_hs_y(int image, gob_t *gob);
-int read_pcx(unsigned char * handle, void *buffer, int buf_len, char *pal);
+int read_pcx(unsigned char *handle, void *buffer, int buf_len, char *pal);
 void register_background(unsigned char *pixels, char pal[768]);
 int register_gob(unsigned char *handle, gob_t *gob, int len);
 void recalculate_gob(gob_t *gob, char pal[768]);
@@ -358,7 +349,6 @@ int addkey(unsigned int key);
 
 /* sound-linux.c */
 #ifdef LINUX
-
 
 #endif
 

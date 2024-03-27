@@ -1,7 +1,7 @@
 /*
  * dj.h
  * Copyright (C) 1998 Brainchild Design - http://brainchilddesign.com/
- * 
+ *
  * Copyright (C) 2002 Florian Schulze - crow@icculus.org
  *
  * This file is part of Jump 'n Bump.
@@ -31,7 +31,7 @@
 #include <sys/nearptr.h>
 #endif
 
-#define DJ_SD_TYPE_NOSOUND 0
+#define DJ_SD_TYPE_NOSOUND  0
 #define DJ_SD_TYPE_SBLASTER 1
 
 #define DJ_SFX_TYPE_SSS 0

@@ -59,9 +59,13 @@ static int dirty_blocks[2][25 * 16 * 2];
 
 static SDL_Surface *load_xpm_from_array(char **xpm)
 {
-#define NEXT_TOKEN { \
-	while ((*p != ' ') && (*p != '\t')) p++; \
-	while ((*p == ' ') || (*p == '\t')) p++; }
+#define NEXT_TOKEN                          \
+	{                                       \
+		while ((*p != ' ') && (*p != '\t')) \
+			p++;                            \
+		while ((*p == ' ') || (*p == '\t')) \
+			p++;                            \
+	}
 
 	SDL_Surface *surface;
 	char *p;
@@ -293,7 +297,7 @@ int get_color(int color, char pal[768])
 {
 	assert(color < 256);
 	assert(pal);
-	return SDL_MapRGB(jnb_surface->format, (Uint8)(pal[color * 3 + 0] << 2), (Uint8)(pal[color * 3 + 1] << 2), (Uint8)(pal[color * 3 + 2] << 2));
+	return SDL_MapRGB(jnb_surface->format, (Uint8) (pal[color * 3 + 0] << 2), (Uint8) (pal[color * 3 + 1] << 2), (Uint8) (pal[color * 3 + 2] << 2));
 }
 
 int get_pixel(int page, int x, int y)
