@@ -62,17 +62,26 @@ install:
 	mkdir -p $(DESTDIR)$(GAMEDATADIR)/jumpnbump/
 	mkdir -p $(DESTDIR)$(DATADIR)/metainfo/
 	mkdir -p $(DESTDIR)$(DATADIR)/applications/
-	mkdir -p $(DESTDIR)$(DATADIR)/icons/
+	mkdir -p $(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/
+	mkdir -p $(DESTDIR)$(DATADIR)/icons/hicolor/64x64/apps/
+	mkdir -p $(DESTDIR)$(DATADIR)/icons/hicolor/96x96/apps/
+	mkdir -p $(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/
 	mkdir -p $(DESTDIR)$(DATADIR)/man/man6/
 	install -m 755 $(BINARIES) $(DESTDIR)$(BINDIR)/
 	install -m 644 data/jumpbump.dat \
 		$(DESTDIR)$(GAMEDATADIR)/jumpnbump/jumpbump.dat
-	install -m 644 dist/jumpnbump.appdata.xml \
-		$(DESTDIR)$(DATADIR)/metainfo/jumpnbump.appdata.xml
-	install -m 644 dist/jumpnbump.desktop \
-		$(DESTDIR)$(DATADIR)/applications/jumpnbump.desktop
-	install -m 644 dist/jumpnbump.png \
-		$(DESTDIR)$(DATADIR)/icons/jumpnbump.png
+	install -m 644 dist/io.gitlab.LibreGames.jumpnbump.metainfo.xml \
+		$(DESTDIR)$(DATADIR)/metainfo/io.gitlab.LibreGames.jumpnbump.metainfo.xml
+	install -m 644 dist/io.gitlab.LibreGames.jumpnbump.desktop \
+		$(DESTDIR)$(DATADIR)/applications/io.gitlab.LibreGames.jumpnbump.desktop
+	install -m 644 dist/jumpnbump32.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/io.gitlab.LibreGames.jumpnbump
+	install -m 644 dist/jumpnbump64.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/64x64/apps/io.gitlab.LibreGames.jumpnbump
+	install -m 644 dist/jumpnbump96.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/96x96/apps/io.gitlab.LibreGames.jumpnbump
+	install -m 644 dist/jumpnbump128.png \
+		$(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/io.gitlab.LibreGames.jumpnbump
 	install -m 644 dist/jumpnbump.6 $(DESTDIR)$(DATADIR)/man/man6/
 
 #	$(MAKE) -C menu install

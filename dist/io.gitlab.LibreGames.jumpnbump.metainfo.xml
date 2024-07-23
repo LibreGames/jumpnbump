@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Rémi Verschelde <rverschelde@gmail.com> -->
+<component type="desktop">
+  <id>io.gitlab.LibreGames.jumpnbump</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <developer id="com.brainchilddesign">
+    <name>Brainchild Design</name>
+  </developer>
+  <name>Jump 'n Bump</name>
+  <summary>Cute multiplayer platform game</summary>
+  <description>
+    <p>
+      Jump 'n Bump is an arcade multiplayer game for the whole family.
+      You play cute fluffy little bunnies and hop on each other's heads.
+    </p>
+
+    <p>
+      At the beginning you are in the menu, where you have to let each active player
+      jump over the tree trunk to enter the play area, and then walk to the right.
+      You will then enter the arena. The aim is to jump on the other bunnies' heads...
+    </p>
+  </description>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">intense</content_attribute>
+    <content_attribute id="violence-bloodshed">mild</content_attribute>
+  </content_rating>
+  <screenshots>
+    <screenshot type="default" width="800" height="512">
+      <image>https://gitlab.com/LibreGames/jumpnbump/raw/master/dist/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="1.61" date="2019-09-02">
+      <url type="details">https://gitlab.com/LibreGames/jumpnbump/-/releases/1.61</url>
+    </release>
+    <release version="1.60" date="2017-05-24">
+      <url type="details">https://gitlab.com/LibreGames/jumpnbump/-/releases/1.60</url>
+    </release>
+  </releases>
+  <url type="homepage">https://gitlab.com/LibreGames/jumpnbump</url>
+  <update_contact>rverschelde_AT_gmail.com</update_contact>
+  <launchable type="desktop-id">io.gitlab.LibreGames.jumpnbump.desktop</launchable>
+</component>
