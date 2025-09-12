@@ -11,7 +11,6 @@ data/*.gob
 data/jumpbump.dat
 menu/jumpnbump_menu.py
 menu/po/*.mo
-globals.h
 gobpack
 jnbmenu.tcl
 jnbpack

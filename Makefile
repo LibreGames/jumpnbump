@@ -1,3 +1,5 @@
+# Define to 1 for a system install (on Linux/*BSD) instead of running in place.
+SYSINSTALL ?= 0
 DESTDIR ?=
 PREFIX ?= /usr/local
 BINDIR ?= $(PREFIX)/bin
@@ -9,6 +11,9 @@ EXE ?=
 CFLAGS ?= -Wall -O2 -ffast-math -funroll-loops -fno-common
 SDL_CFLAGS = `sdl2-config --cflags`
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -DNDEBUG -DUSE_SDL -DUSE_NET -DZLIB_SUPPORT -DBZLIB_SUPPORT
+ifeq ($(SYSINSTALL), 1)
+DEFINES += -DGAMEDATADIR="\"$(GAMEDATADIR)\""
+endif
 INCLUDES = -I.
 CFLAGS += $(DEFINES) $(SDL_CFLAGS) $(INCLUDES)
 export SDL_CFLAGS
@@ -29,21 +34,18 @@ BINARIES = $(TARGET) $(MODIFY_TARGET)
 
 all: $(BINARIES)
 
-$(SDL_TARGET): globals.h
+$(SDL_TARGET):
 	$(MAKE) -C sdl
 
 $(MODIFY_TARGET): modify
 
-modify: globals.h
+modify:
 	$(MAKE) -C modify
 
-$(TARGET): $(OBJS) $(SDL_TARGET) data globals.h
+$(TARGET): $(OBJS) $(SDL_TARGET) data
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS) $(SDL_TARGET) $(LIBS)
 
-$(OBJS): globals.h
-
-globals.h: globals.pre
-	sed -e "s#%%DATADIR%%#$(GAMEDATADIR)#g" < globals.pre > globals.h
+$(OBJS):
 
 data: $(MODIFY_TARGET)
 	$(MAKE) -C data
@@ -53,7 +55,7 @@ jnbmenu:
 
 clean:
 	for dir in data modify sdl; do $(MAKE) clean -C $$dir; done
-	$(RM) $(TARGET) *.exe *.o globals.h
+	$(RM) $(TARGET) *.exe *.o
 
 	$(MAKE) -C menu clean
 

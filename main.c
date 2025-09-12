@@ -2294,6 +2294,7 @@ int init_program(int argc, char *argv[], char *pal)
 				return 1;
 			} else if (strstr(argv[1], "-h")) {
 				printf("Usage: jumpnbump [OPTION]...\n");
+				printf("Compiled-in game data directory: %s\n", DATA_PATH);
 				printf("\n");
 				printf("  -h                       this help\n");
 				printf("  -v                       print version\n");
