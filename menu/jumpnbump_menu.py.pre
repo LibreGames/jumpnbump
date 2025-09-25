@@ -28,7 +28,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
 
-from PIL import Image
+from PIL import Image, __version__ as PILLOW_VERSION
 
 RESOURCE_DIR = '%%DATADIR%%/jumpnbump'
 BINARY_DIR = '%%BINDIR%%'
@@ -118,7 +118,11 @@ def level_changed(widget):
                    'unpack', choosen_level)
         im = Image.open('level.pcx')
         w, h = im.size
-        im.thumbnail([w/2, h/2], Image.ANTIALIAS)
+        if PILLOW_VERSION >= "10.0.0":
+            resample_filter = Image.LANCZOS
+        else:
+            resample_filter = Image.ANTIALIAS
+        im.thumbnail([w/2, h/2], resample_filter)
         im.save('level.png')
         im.close()
         image.set_from_file('level.png')
