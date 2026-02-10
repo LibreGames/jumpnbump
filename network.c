@@ -167,13 +167,13 @@ void packetToBuf(const NetPacket *pkt, char *buf)
 	*((Uint32 *) (buf + 8)) = SDLNet_Read32(&pkt->arg2);
 	*((Uint32 *) (buf + 12)) = SDLNet_Read32(&pkt->arg3);
 	*((Uint32 *) (buf + 16)) = SDLNet_Read32(&pkt->arg4);
-	/*
+#if 0
 	*((unsigned long *) (buf +  0)) = htonl(pkt->cmd);
 	*((unsigned long *) (buf +  4)) = htonl((unsigned long) pkt->arg);
 	*((unsigned long *) (buf +  8)) = htonl((unsigned long) pkt->arg2);
 	*((unsigned long *) (buf + 12)) = htonl((unsigned long) pkt->arg3);
 	*((unsigned long *) (buf + 16)) = htonl((unsigned long) pkt->arg4);
-*/
+#endif
 }
 
 void sendPacketToSock(TCPsocket s, NetPacket *pkt)

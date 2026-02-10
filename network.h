@@ -35,15 +35,15 @@
 
 #define NETPKTBUFSIZE (4 + 4 + 4 + 4 + 4)
 
-#define NETCMD_NACK         (0xF00DF00D + 0)
-#define NETCMD_ACK          (0xF00DF00D + 1)
-#define NETCMD_HELLO        (0xF00DF00D + 2)
-#define NETCMD_GREENLIGHT   (0xF00DF00D + 3)
-#define NETCMD_MOVE         (0xF00DF00D + 4)
-#define NETCMD_BYE          (0xF00DF00D + 5)
-#define NETCMD_POSITION     (0xF00DF00D + 6)
-#define NETCMD_ALIVE        (0xF00DF00D + 7)
-#define NETCMD_KILL         (0xF00DF00D + 8)
+#define NETCMD_NACK       (0xF00DF00D + 0)
+#define NETCMD_ACK        (0xF00DF00D + 1)
+#define NETCMD_HELLO      (0xF00DF00D + 2)
+#define NETCMD_GREENLIGHT (0xF00DF00D + 3)
+#define NETCMD_MOVE       (0xF00DF00D + 4)
+#define NETCMD_BYE        (0xF00DF00D + 5)
+#define NETCMD_POSITION   (0xF00DF00D + 6)
+#define NETCMD_ALIVE      (0xF00DF00D + 7)
+#define NETCMD_KILL       (0xF00DF00D + 8)
 
 extern int is_server;
 extern int is_net;

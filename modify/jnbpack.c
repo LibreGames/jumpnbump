@@ -1,7 +1,7 @@
 /*
  * pack.c
  * Copyright (C) 1998 Brainchild Design - http://brainchilddesign.com/
- * 
+ *
  * Copyright (C) 2001 "timecop" <timecop@japan.co.jp>
  *
  * Copyright (C) 2002 Florian Schulze <crow@icculus.org>
