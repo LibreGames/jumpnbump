@@ -95,4 +95,4 @@ uninstall:
 	$(RM) $(DESTDIR)$(DATADIR)/man/man6/jumpnbump.6
 
 doc:
-	rman dist/jumpnbump.6 -f HTML > docs/jumpnbump.html
+	man2html dist/jumpnbump.6 > docs/jumpnbump.html
