@@ -1,20 +1,22 @@
-.TH "Jump 'n Bump" 6 "August 25th, 2002"
+.TH "Jump 'n Bump" 6 "February 10th, 2026"
 .SH NAME
 jumpnbump \- Cute multiplayer platform game with bunnies
 .SH SYNOPSIS
-jumpnbump \fR[\fB-dat \fIlevelname\fR] [\fB-server \fIclients_number\fR] [\fB-connect \fIhostname\fR] [\fB-fullscreen\fR] [\fB-nosound\fR] [\fB-musicnosound\fR] [\fB-nogore\fR] [\fB-noflies\fR] [\fB-mirror\fR] [\fB-scaleup\fR] [\fB-v\fR] [\fB-h\fR]
+jumpnbump \fR[\fB-dat \fIlevel_path\fR] [\fB-server \fIclients_number\fR] [\fB-connect \fIhostname\fR] [\fB-player \fInumber\fR] [\fB-fullscreen\fR] [\fB-nosound\fR] [\fB-musicnosound\fR] [\fB-nogore\fR] [\fB-noflies\fR] [\fB-mirror\fR] [\fB-scaleup\fR] [\fB-v\fR] [\fB-h\fR]
 .SH DESCRIPTION
 You, as a bunny, have to jump on your opponents to make them
 explode. It's a true multiplayer game, you can't play this alone.
 It has network support.
 .SH OPTIONS
-.IP "-dat \fIlevelname\fR"
-Load \fIlevelname\fR and use it as the level for this game.
+.IP "-dat \fIlevel_path\fR"
+Load \fIlevel_path\fR (\fI.dat\fR file) and use it as the level for this game.
 .IP "-server \fIclients_number\fR"
 Start as a server waiting on port TCP 11111 and wait for \fIclient_numbers\fR
 clients to connect before starting the game.
-.IP "-connect \fIhostname"
+.IP "-connect \fIhostname\fR"
 Connect (using IP network) to remote server \fIhostname\fR.
+.IP "-player \fInumber\fR"
+Set the main player to \fInumber\fR. Needed for networking.
 .IP "-fullscreen"
 Run Jump 'n Bump in fullscreen mode.
 .IP "-nosound"
@@ -55,11 +57,11 @@ Right - L
 .br
 Jump - I
 .IP "Player 4 (Mijji)"
-Left - 4
+Left - Keypad 4
 .br
-Right - 5
+Right - Keypad 5
 .br
-Jump - 8
+Jump - Keypad 8
 .IP "In the game"
 Turn on/off computer play (AI) of bunny 1 - 1
 .br
@@ -115,16 +117,13 @@ The .pcx files should be resaved with another program, as they are not
 packed and are thus very large.
 .SH AUTHORS
 .PP
-Chuck Mason <cemason@users.sourceforge.net>, Jon Atkins <jcatki@home.com>,
-Philippe Brochard <phil.brochard@wanadoo.fr>, Gürkan Sengün <gurkan@linuks.mine.nu>,
-Florian Schulze <crow@icculus.org>, Ricardo Cruz <rick2@aeiou.pt> and "timecop" <timecop@japan.co.jp> are
-the authors of Jump 'n Bump.
+Jump 'n Bump is originally a DOS game by Brainchild Design, authored by
+Matthias Brynervall (code), Andreas Brynervall (graphics), Martin Magnusson
+(graphics), and Anders Nilsson (music). It was open sourced under the GPL
+license.
 .PP
-This program is a UNIX port of the old DOS game by brainchilddesign.
+The game was ported to Linux using SDL by Chuck Mason, and since then
+received contributions from multiple people. See the AUTHORS file provided
+with the game's documentation for details.
 .PP
-This manual page was written for the Debian GNU/Linux distribution because
-the original program does not have a manual page.
-.PP
-This manual page was written by Joe Wreschnig <piman@sacredchao.net>, for the
-Debian GNU/Linux system (but may be used by others). The manual page is kept
-up to date by Gürkan Sengün <gurkan@linuks.mine.nu>.
+This SDL2 port of Jump 'n Bump is maintained by the Libre Games community.

@@ -20,6 +20,7 @@ if [[ $# -ge 1 ]]; then
         mingw32-winpthreads mingw32-SDL2 mingw32-SDL2_mixer mingw32-SDL2_net mingw32-zlib
     sudo dnf install -y mingw64-bzip2 mingw64-flac mingw64-gcc mingw64-libmodplug mingw64-libogg mingw64-libvorbis \
         mingw64-winpthreads mingw64-SDL2 mingw64-SDL2_mixer mingw64-SDL2_net mingw64-zlib
+    sudo dnf install -y --setopt=install_weak_deps=False /usr/bin/wine
     exit 0
     ;;
     --32)
@@ -42,7 +43,7 @@ fi
 
 if [ "${BITS}" == "32" ]; then
     MINGW=i686-w64-mingw32
-    LIBS="libgcc_s_sjlj-1 "
+    LIBS="libgcc_s_dw2-1 "
 else
     MINGW=x86_64-w64-mingw32
     LIBS="libgcc_s_seh-1 "
@@ -58,7 +59,7 @@ rm -f *.dll
 
 make CC=${CC} EXEC=wine EXE=.exe $@
 
-LIBS+="libbz2-1 libFLAC-8 libmodplug-1 libogg-0 libstdc++-6 libvorbis-0 libvorbisfile-3 libwinpthread-1 SDL2 SDL2_mixer SDL2_net zlib1"
+LIBS+="libbz2-1 libFLAC-8 libmodplug-1 libogg-0 libssp-0 libstdc++-6 libvorbis-0 libvorbisfile-3 libwinpthread-1 SDL2 SDL2_mixer SDL2_net zlib1"
 for lib in ${LIBS}; do
   cp -f ${MINGW_PATH}/sys-root/mingw/bin/${lib}.dll .
 done
