@@ -160,14 +160,10 @@ extern int ai[JNB_MAX_PLAYERS];
 #define BAN_ICE    3
 #define BAN_SPRING 4
 
-#ifndef DATA_PATH
-#ifdef __APPLE__
-#define DATA_PATH "data/jumpbump.dat"
-#elif _WIN32
-#define DATA_PATH "data/jumpbump.dat"
+#ifdef GAMEDATADIR
+#define DATA_PATH GAMEDATADIR "/jumpnbump/jumpbump.dat"
 #else
-#define DATA_PATH "%%DATADIR%%/jumpnbump/jumpbump.dat"
-#endif
+#define DATA_PATH "data/jumpbump.dat"
 #endif
 
 typedef struct {
