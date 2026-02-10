@@ -89,8 +89,8 @@ install:
 uninstall:
 	for bin in $(BINARIES); do $(RM) $(DESTDIR)$(BINDIR)/$$bin; done
 	$(RM) -r $(DESTDIR)$(GAMEDATADIR)/jumpnbump
-	$(RM) $(DESTDIR)$(DATADIR)/metainfo/jumpnbump.appdata.xml
-	$(RM) $(DESTDIR)$(DATADIR)/applications/jumpnbump.desktop
+	$(RM) $(DESTDIR)$(DATADIR)/metainfo/io.gitlab.LibreGames.jumpnbump.metainfo.xml
+	$(RM) $(DESTDIR)$(DATADIR)/applications/io.gitlab.LibreGames.jumpnbump.desktop
 	$(RM) $(DESTDIR)$(DATADIR)/icons/jumpnbump.png
 	$(RM) $(DESTDIR)$(DATADIR)/man/man6/jumpnbump.6
 

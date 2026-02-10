@@ -22,13 +22,14 @@ clean:
 install:
 	install -D -m 644 jumpnbump_menu.glade $(DESTDIR)$(GAMEDATADIR)/jumpnbump/jumpnbump_menu.glade
 	install -D -m 755 jumpnbump_menu.py $(DESTDIR)$(BINDIR)/jumpnbump-menu
-	install -D -m 644 ../dist/jumpnbump-menu.desktop $(DESTDIR)$(DATADIR)/applications/jumpnbump-menu.desktop
+	install -D -m 644 ../dist/io.gitlab.LibreGames.jumpnbump-menu.desktop \
+		$(DESTDIR)$(DATADIR)/applications/io.gitlab.LibreGames.jumpnbump-menu.desktop
 
 	$(MAKE) -C po install
 
 uninstall:
 	$(RM) $(DESTDIR)$(GAMEDATADIR)/jumpnbump/jumpnbump_menu.glade
 	$(RM) $(DESTDIR)$(BINDIR)/jumpnbump-menu
-	$(RM) $(DESTDIR)$(DATADIR)/applications/jumpnbump-menu.desktop
+	$(RM) $(DESTDIR)$(DATADIR)/applications/io.gitlab.LibreGames.jumpnbump-menu.desktop
 
 	$(MAKE) -C po uninstall
