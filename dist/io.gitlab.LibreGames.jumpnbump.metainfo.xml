@@ -31,6 +31,9 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="1.70" date="2026-02-10">
+      <url type="details">https://gitlab.com/LibreGames/jumpnbump/-/releases/1.70</url>
+    </release>
     <release version="1.61" date="2019-09-02">
       <url type="details">https://gitlab.com/LibreGames/jumpnbump/-/releases/1.61</url>
     </release>

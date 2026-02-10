@@ -1,4 +1,4 @@
-(unreleased) - 1.70
+10 Feb 2026 - 1.70
   - build: Avoid globals.pre and provide FHS game data dir via macro
     (requires `SYSINTALL=1`)
   - build: Move appdata file to metainfo directory
