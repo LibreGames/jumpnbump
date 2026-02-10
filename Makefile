@@ -77,16 +77,14 @@ install:
 	install -m 644 dist/io.gitlab.LibreGames.jumpnbump.desktop \
 		$(DESTDIR)$(DATADIR)/applications/io.gitlab.LibreGames.jumpnbump.desktop
 	install -m 644 dist/jumpnbump32.png \
-		$(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/io.gitlab.LibreGames.jumpnbump
+		$(DESTDIR)$(DATADIR)/icons/hicolor/32x32/apps/io.gitlab.LibreGames.jumpnbump.png
 	install -m 644 dist/jumpnbump64.png \
-		$(DESTDIR)$(DATADIR)/icons/hicolor/64x64/apps/io.gitlab.LibreGames.jumpnbump
+		$(DESTDIR)$(DATADIR)/icons/hicolor/64x64/apps/io.gitlab.LibreGames.jumpnbump.png
 	install -m 644 dist/jumpnbump96.png \
-		$(DESTDIR)$(DATADIR)/icons/hicolor/96x96/apps/io.gitlab.LibreGames.jumpnbump
+		$(DESTDIR)$(DATADIR)/icons/hicolor/96x96/apps/io.gitlab.LibreGames.jumpnbump.png
 	install -m 644 dist/jumpnbump128.png \
-		$(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/io.gitlab.LibreGames.jumpnbump
+		$(DESTDIR)$(DATADIR)/icons/hicolor/128x128/apps/io.gitlab.LibreGames.jumpnbump.png
 	install -m 644 dist/jumpnbump.6 $(DESTDIR)$(DATADIR)/man/man6/
-
-#	$(MAKE) -C menu install
 
 uninstall:
 	for bin in $(BINARIES); do $(RM) $(DESTDIR)$(BINDIR)/$$bin; done
@@ -95,8 +93,6 @@ uninstall:
 	$(RM) $(DESTDIR)$(DATADIR)/applications/io.gitlab.LibreGames.jumpnbump.desktop
 	$(RM) $(DESTDIR)$(DATADIR)/icons/jumpnbump.png
 	$(RM) $(DESTDIR)$(DATADIR)/man/man6/jumpnbump.6
-
-	$(MAKE) -C menu uninstall
 
 doc:
 	rman dist/jumpnbump.6 -f HTML > docs/jumpnbump.html
