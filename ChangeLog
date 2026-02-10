@@ -1,12 +1,15 @@
 (unreleased) - 1.70
-  - Ported jumpnbump-menu to Python 3 and GTK+3
-  - jumpnbump-menu is no longer installed by default, use `make install -C menu`
-    to install it
-  - Fixed using jetpack and other cheats (regression from SDL2 port)
-  - Updated in-game credits
-  - Move appdata file to metainfo directory (Linux)
-  - Applied `clang-format` to code base
-  - Packaging fixes and cleanups
+  - build: Avoid globals.pre and provide FHS game data dir via macro
+    (requires `SYSINTALL=1`)
+  - build: Move appdata file to metainfo directory
+  - build: Packaging fixes and cleanups
+  - menu: Port to Python 3 and GTK+3
+  - menu: Not installed by default, use `make install -C menu`
+  - menu: Use Pillow instead of ImageMagick for level previews
+  - sdl: Fix using jetpack and other cheats
+  - style: Apply `clang-format` to code base
+  - ui: Update in-game credits
+  - ui: Add bunny sprites to score board
 
 24 May 2017 - 1.60
   - Ported to SDL2

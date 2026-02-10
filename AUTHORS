@@ -2,7 +2,9 @@ Jump 'n Bump is done by many people. The authors and contributors are listed
 below. Invented and implemented was Jump 'n Bump by Brainchild Design as a
 DOS game. Later the source was released and Chuck Mason did the port to
 Linux using SDL. Some people contributed various stuff to it.
-The current maintainer is Florian Schulze.
+
+Currently maintained by the Libre Games community:
+https://libregames.gitlab.io/jumpnbump/
 
 Mattias Brynervall <matbr656@student.liu.se>
   Original DOS code.
@@ -34,6 +36,7 @@ Gürkan Sengün <gurkan@linuks.mine.nu>
 
 Florian Schulze <crow@icculus.org>
   Cleaned up code. Added scaling graphics mode (800x512). Fixed sound.
+  New SDL port.
 
 Ben Hines <bhines@alumni.ucsd.edu>
   MacOS X fixes.
