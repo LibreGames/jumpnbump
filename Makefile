@@ -9,7 +9,7 @@ GAMEDATADIR ?= $(DATADIR)
 EXE ?=
 
 CFLAGS ?= -Wall -O2 -ffast-math -funroll-loops -fno-common
-SDL_CFLAGS = `sdl2-config --cflags`
+SDL_CFLAGS = `pkg-config --cflags SDL2_mixer SDL2_net sdl2`
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -DNDEBUG -DUSE_SDL -DUSE_NET -DZLIB_SUPPORT -DBZLIB_SUPPORT
 ifeq ($(SYSINSTALL), 1)
 DEFINES += -DGAMEDATADIR="\"$(GAMEDATADIR)\""
@@ -21,8 +21,8 @@ export DEFINES
 export INCLUDES
 
 LDFLAGS ?=
-SDL_LIBS = `sdl2-config --libs`
-LIBS = $(SDL_LIBS) -lSDL2_mixer -lSDL2_net -lbz2 -lz -lm
+SDL_LIBS = `pkg-config --libs SDL2_mixer SDL2_net sdl2`
+LIBS = $(SDL_LIBS) -lbz2 -lz -lm
 
 TARGET = jumpnbump$(EXE)
 SDL_TARGET = sdl.a
