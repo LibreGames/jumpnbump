@@ -420,26 +420,20 @@ void dj_stop_sfx_channel(char channel_num)
 char dj_load_sfx(unsigned char *file_handle, char *filename, int file_length, char sfx_type, unsigned char sfx_num)
 {
 	unsigned int i;
-	unsigned char *src;
-	unsigned short *dest;
+	signed short *dest;
 
 	if (main_info.no_sound)
 		return 0;
 
-	sounds[sfx_num].buf = malloc(file_length);
+	/* SMP files are raw 8-bit signed mono, expand them to 16-bit for the mixer. */
+	sounds[sfx_num].buf = malloc(file_length * sizeof(signed short));
+	if (sounds[sfx_num].buf == NULL)
+		return 1;
 
-	memcpy(sounds[sfx_num].buf, file_handle, file_length);
-
-	sounds[sfx_num].length = file_length / 2;
-	src = sounds[sfx_num].buf;
-	dest = (unsigned short *) sounds[sfx_num].buf;
-	for (i = 0; i < sounds[sfx_num].length; i++) {
-		unsigned short temp;
-		temp = src[0] + (src[1] << 8);
-		*dest = temp;
-		src += 2;
-		dest++;
-	}
+	sounds[sfx_num].length = file_length;
+	dest = (signed short *) sounds[sfx_num].buf;
+	for (i = 0; i < sounds[sfx_num].length; i++)
+		dest[i] = (signed char) file_handle[i] * 256;
 	return 0;
 }
 
